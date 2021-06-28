@@ -1,5 +1,8 @@
 import * as Discord from 'discord.js'
+import * as dotenv from 'dotenv';
+const process = dotenv.config().parsed
 
+  console.log(process.env['token'])
 const client = new Discord.Client();
 
 client.on('ready', () => {
@@ -14,4 +17,4 @@ client.on('message', message => {
   }
 });
 
-client.login('ODU4NjU1NDM0MDMwNDQ4NjYy.YNhTMA.4wVFUGceN8JfOpWosiW69W3Awbs');
+client.login('ahh ha');
