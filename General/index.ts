@@ -4,8 +4,8 @@ import * as del from '../Commands/bulk-delete'
 //import * as embed from '../Commands/embed';
 const process = dotenv.config().parsed
 //console.log(process)
-const getToken = function(obj:any ): string {
-  const token = obj['token'];
+const getToken = function (obj: any) {
+  const token = obj.token;
   return token
 }
 const client = new Discord.Client( {fetchAllMembers: false,
@@ -42,9 +42,14 @@ client.on('message', async message => {
       if (message.content.toLowerCase() == 'wi') {
         await message.channel.send('  وَأَنْتُمْ فَجَزَاكُمُ ٱللَّٰهُ خَيْرًا‎')
       }
-      if (message.content === 'cc') {
-        del.BulkDelete(message)
+      if (message.content.startsWith(String(prefix))){
+        if (message.content === prefix + 'resetChannel') {
+        
+            del.BulkDelete(message)
+         
+        }
       }
+    
     }
   }
 });
