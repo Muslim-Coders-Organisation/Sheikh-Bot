@@ -1,5 +1,6 @@
 import * as Discord from 'discord.js'
 import * as dotenv from 'dotenv';
+import * as del from '../Commands/bulk-delete'
 //import * as embed from '../Commands/embed';
 const process = dotenv.config().parsed
 //console.log(process)
@@ -40,6 +41,9 @@ client.on('message', async message => {
       }
       if (message.content.toLowerCase() == 'wi') {
         await message.channel.send('  وَأَنْتُمْ فَجَزَاكُمُ ٱللَّٰهُ خَيْرًا‎')
+      }
+      if (message.content === 'cc') {
+        del.BulkDelete(message)
       }
     }
   }
