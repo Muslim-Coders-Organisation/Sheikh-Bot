@@ -1,32 +1,43 @@
 import * as Discord from 'discord.js'
 import * as dotenv from 'dotenv';
-import * as del from '../Commands/bulk-delete'
-//import * as embed from '../Commands/embed';
+import { resetChannel } from '../Commands/recreateChannel';
+import { configPrefix } from '../Commands/config-prefix';
+import mongoose from 'mongoose';
+import { connect } from './connect_db';
+import M from '../Database/basic'
+console.log(connect())
 const process = dotenv.config().parsed
 //console.log(process)
 const getToken = function (obj: any) {
   const token = obj.token;
   return token
 }
-const client = new Discord.Client( {fetchAllMembers: false,
+const client = new Discord.Client({
+  fetchAllMembers: false,
   presence: {
     status: 'online',
     activity: {
       name: `to Quran`,
       type: 'LISTENING'
-    } 
-  }});
+    }
+  }
+});
 
-let prefix:String = '<' 
+let prefix: String = '<'
 // later add an option to change the prefix in the server it is 
 
 client.on('ready', () => {
-  console.log('I am ready!');
+  console.log(client?.user?.username + ' is active');
 });
 
 client.on('message', async message => {
   if (message.channel.type !== "dm") {
     if (message.author.bot == false) {
+
+      /* Normal Text Commands */
+      let search = String(message?.guild?.id)
+      let p = await M.findOne({ server_id: search })
+      prefix = p ? p.prefix : '<'
       if (message.content.toLowerCase() == 'as') {
         await message.channel.send('السَّلاَم عَلَيْكُمْ وَرَحْمَةُ اللهِ وَبَرَكَاتُهُ')
       }
@@ -42,14 +53,30 @@ client.on('message', async message => {
       if (message.content.toLowerCase() == 'wi') {
         await message.channel.send('  وَأَنْتُمْ فَجَزَاكُمُ ٱللَّٰهُ خَيْرًا‎')
       }
-      if (message.content.startsWith(String(prefix))){
+      if (message.content.toLowerCase() == 'in') {
+        await message.channel.send('إن شاء الله')
+      }
+      if (message.content.startsWith(String(prefix))) {
+
+        /* Config Commands */
+        if (message.content.startsWith(prefix + 'config prefix')) {
+          configPrefix.command(message, p)
+
+        }
+
+        /* Normal Moderation Commands */
         if (message.content === prefix + 'resetChannel') {
-        
-            del.BulkDelete(message)
-         
+
+          resetChannel.command(message)
+
+        }
+        if (message.content === prefix + 'trial') {
+
+          message.channel.send('Success')
+
         }
       }
-    
+
     }
   }
 });
