@@ -36,7 +36,7 @@ export const warnUser: command = {
                         }
                     )
                     .setFooter("Read the rules and behave nicely :)");
-                user.send(warnEmbed).catch((err) => console.log(err));
+                user.send(warnEmbed).catch((err: any) => console.log(err));
             }
             else {
                 message.channel.send('Dude you can\'t warn yourself stop wasting my time')
