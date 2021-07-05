@@ -5,6 +5,7 @@ import { configPrefix } from '../Commands/config-prefix';
 import mongoose from 'mongoose';
 import { BanUser } from '../Commands/ban';
 import { connect } from './connect_db';
+import { ayah } from '../Commands/ayah';
 import { warnUser } from '../Commands/warn';
 import M from '../Database/basic'
 
@@ -20,7 +21,7 @@ const client = new Discord.Client({
   presence: {
     status: 'online',
     activity: {
-      name: `to Quran`,
+      name: `Quran`,
       type: 'LISTENING'
     }
   }
@@ -60,6 +61,12 @@ client.on('message', async message => {
         await message.channel.send('إن شاء الله')
       }
       if (message.content.startsWith(String(prefix))) {
+
+
+        /* Islamic Commands */
+        if (message.content.startsWith(prefix + 'ayah')) {
+          ayah.command(message)
+        }
 
         /* Config Commands */
         if (message.content.startsWith(prefix + 'config prefix')) {
