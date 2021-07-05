@@ -3,8 +3,12 @@ import * as dotenv from 'dotenv';
 import { resetChannel } from '../Commands/recreateChannel';
 import { configPrefix } from '../Commands/config-prefix';
 import mongoose from 'mongoose';
+import { BanUser } from '../Commands/ban';
 import { connect } from './connect_db';
+import { ayah } from '../Commands/ayah';
+import { warnUser } from '../Commands/warn';
 import M from '../Database/basic'
+
 console.log(connect())
 const process = dotenv.config().parsed
 //console.log(process)
@@ -17,7 +21,7 @@ const client = new Discord.Client({
   presence: {
     status: 'online',
     activity: {
-      name: `to Quran`,
+      name: `Quran`,
       type: 'LISTENING'
     }
   }
@@ -58,22 +62,30 @@ client.on('message', async message => {
       }
       if (message.content.startsWith(String(prefix))) {
 
+
+        /* Islamic Commands */
+        if (message.content.startsWith(prefix + 'ayah')) {
+          ayah.command(message)
+        }
+
         /* Config Commands */
         if (message.content.startsWith(prefix + 'config prefix')) {
           configPrefix.command(message, p)
-
         }
 
         /* Normal Moderation Commands */
         if (message.content === prefix + 'resetChannel') {
-
           resetChannel.command(message)
+        }
 
+        if (message.content.startsWith(prefix + 'ban')) {
+          BanUser.command(message)
         }
         if (message.content === prefix + 'trial') {
-
           message.channel.send('Success')
-
+        }
+        if (message.content.startsWith(prefix + 'warn')) {
+          warnUser.command(message)
         }
       }
 
