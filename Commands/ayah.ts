@@ -10,31 +10,41 @@ export const ayah: inter.command = {
         if (message.content.split(' ').length > 1) {
 
             const ayah = message.content.split(' ')[1]
-            axios({
-                method: 'get',
-                url: `http://api.alquran.cloud/v1/ayah/${ayah}/en.hilali`,
-            })
-                .then(async function (response: any) {
-                    const resp = await response.data
-                    if (resp.code == 200) {
-                        await resp
-                        message.channel.send({
-                            embed: CreateEmbed('#ffffff',
-                                resp.data.surah?.englishName,
-                                '',
-                                resp.data.text,
-                                [],
-                                resp.data.page, '')
-                        })
+            const ayatCheck = /[123456789:]/;
 
-                    }
-
+            if (!ayah.match(ayatCheck)) {
+                message.channel.send({
+                    embed: CreateEmbed('#ff0000', 'Error', '', 'Use the format surah:ayah number where both are numbers big brain', [], 'hmm', '')
                 })
-                .catch(async (err: any) => {
-                    const resp = await err.response.data
-                    message.channel.send({ embed: CreateEmbed('####', resp.status, '', resp.data, [], 'Try again', '') })
-                })
+            } else {
+                // send
 
+                axios({
+                    method: 'get',
+                    url: `http://api.alquran.cloud/v1/ayah/${ayah}/en.hilali`,
+                })
+                    .then(async function (response: any) {
+                        const resp = await response.data
+                        if (resp.code == 200) {
+                            await resp
+                            message.channel.send({
+                                embed: CreateEmbed('#90ee90',
+                                    resp.data.surah?.englishName,
+                                    '',
+                                    resp.data.text,
+                                    [],
+                                    resp.data.page, '')
+                            })
+
+                        }
+
+                    })
+                    .catch(async (err: any) => {
+                        const resp = await err.response.data
+                        message.channel.send({ embed: CreateEmbed('#ff0000', resp.status, '', resp.data, [], 'Try again', '') })
+                    })
+
+            }
         }
     }
 }
