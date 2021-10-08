@@ -1,5 +1,5 @@
 import * as discord from 'discord.js'
-import mongoose from 'mongoose'
+import * as mongoose from 'mongoose'
 import * as inter from './int'
 import M from '../Database/basic'
 

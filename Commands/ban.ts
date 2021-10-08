@@ -11,6 +11,8 @@ export const BanUser: command = {
         }
 
         else {
+            //  console.log(typeof message.content.split(' ')[1], message.content.split(' ')[1].length == 18, Number(message.content.split(' ')[1]))
+
             const user = message.mentions.users.first();
             if (user) {
 
@@ -51,9 +53,27 @@ export const BanUser: command = {
                 } else {
                     message.reply("That user isn't in this guild!");
                 }
-            } else {
-                message.reply("You didn't mention the user to ban!");
             }
+            //    else if (message.content.split(' ')[1].length == 18 && Number(message.content.split(' ')[1]) && message.content.split(' ')[0] == ';warn') {
+            else {
+                let reason: string = ''
+                for (let i = 2; i < message.content.split(' ').length; i++) {
+                    reason += message.content.split(' ')[i]
+                    reason += ' '
+                }
+                if (message.content.split(' ')[1].length == 18) {
+                    message.guild ? message.guild.members.ban(message.content.split(' ')[1], { reason: reason })
+                        .then(user => message.reply(`Banned ${user.username || user.id || user} from ${message.guild.name}`))
+                        .catch(console.error) : ''
+                }
+
+                else (
+                    message.reply('Please mention the id or the user to ban, thanks :)')
+                )
+            }
+            /*else {
+                message.reply("You didn't mention the user to ban!");
+            }*/
         }
     }
 }
