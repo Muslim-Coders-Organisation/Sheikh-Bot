@@ -21,3 +21,10 @@ Sheikh Chilli is an open-source discord bot, that's able to perform moderation a
 # Questions / Help
 
 Please join the [server](https://discord.gg/Vtnv3tBJem), and tag Ameen or Validity-Check and we will definetly answer or help with your query :)
+
+# info about bot 
+A special bot Prepaid for modrating commands of people in discord server.
+The main thing super-easy to use flex bot.
+Bot to help everyone.
+Thankyou for using our bot.
+
