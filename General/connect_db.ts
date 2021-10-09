@@ -1,4 +1,4 @@
-import mongoose from 'mongoose'
+import * as mongoose from 'mongoose'
 import * as dotenv from 'dotenv';
 const process = dotenv.config().parsed
 //console.log(process)
@@ -8,6 +8,7 @@ const getLink = function (obj: any) {
 }
 
 const mongoAtlasUri = getLink(process)
+
 export function connect(): string {
   try {
     // Connect to the MongoDB cluster

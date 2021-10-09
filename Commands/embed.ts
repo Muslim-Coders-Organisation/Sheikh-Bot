@@ -1,7 +1,8 @@
 import * as Discord from 'discord.js'
 
-export function CreateEmbed(color:string,title:string,author:string,desc:string,fields:[string, string, boolean][],footer:string,thumbnail:string|undefined):object{
-    
+export function CreateEmbed(c:'success'|'fail'|'others',title:string,author:string,desc:string,fields:[string, string, boolean][],footer:string,thumbnail:string|undefined):object{
+    let color = c=='success'? '#90ee90' : c == 'fail' ?'#ff0000' : ' #337fd5' 
+
     let embed = new Discord.MessageEmbed()
         .setColor(color)
         .setTitle(title)
