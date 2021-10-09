@@ -1,7 +1,7 @@
 import { command } from './int'
 import * as discord from 'discord.js'
 import { CreateEmbed } from './embed'
-import * as axios from 'axios'
+import axios from 'axios'
 
 export const multipleayah: command = {
     title: 'Get multiple ayahs',
