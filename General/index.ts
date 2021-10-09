@@ -3,7 +3,7 @@ import * as Discord from 'discord.js'
 import * as dotenv from 'dotenv';
 import * as mongoose from 'mongoose';
 
-// commands
+// commandsy
 import { resetChannel } from '../Commands/recreateChannel';
 import { configPrefix } from '../Commands/config-prefix';
 import { BanUser } from '../Commands/ban';
@@ -17,6 +17,7 @@ import { memberCount } from '../Commands/membercount';
 import { Purge } from '../Commands/purge'
 import { Unban } from '../Commands/unban'
 import { serverInfo } from '../Commands/server-info'
+import { Avatar } from '../Commands/avatar'
 import M from '../Database/basic'
 
 
@@ -75,8 +76,13 @@ client.on('message', async message => {
 
         /* General Commands */
         if (message.content.toLowerCase() == prefix + 'membercount') {
-
           memberCount.command(message)
+        }
+        if (message.content.startsWith(prefix + 'serverinfo')) {
+          serverInfo.command(message)
+        }
+        if (message.content.startsWith(prefix + 'av')) {
+          Avatar.command(message, client)
         }
         /* Islamic Commands */
         if (message.content.startsWith(prefix + 'q')) {
@@ -107,9 +113,6 @@ client.on('message', async message => {
         }
         if (message.content.startsWith(prefix + 'unban')) {
           Unban.command(message)
-        }
-        if (message.content.startsWith(prefix + 'serverinfo')) {
-          serverInfo.command(message)
         }
         if (message.content === prefix + 'trial') {
           const botping = Date.now() - message.createdTimestamp
