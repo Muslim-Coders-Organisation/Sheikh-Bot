@@ -39,7 +39,6 @@ exports.__esModule = true;
 exports.ayah = void 0;
 var embed_1 = require("./embed");
 var axios = require("axios");
-var multipleayah_1 = require("./multipleayah");
 exports.ayah = {
     title: 'Getting Ayah',
     description: 'fetting a particular ayah from the Quran Surah Number:Ayah Number',
@@ -48,18 +47,13 @@ exports.ayah = {
         var _this = this;
         if (message.content.split(' ').length > 1) {
             var ayah_1 = message.content.split(' ')[1];
-            var ayatCheck = /[1234567890:]/;
-            var multipleayatcheck = /[1234567890:-]/;
+            var ayatCheck = /[123456789:]/;
             if (!ayah_1.match(ayatCheck)) {
                 message.channel.send({
-                    embed: embed_1.CreateEmbed('fail', 'Error', '', 'Use the format surah:ayah number where both are numbers big brain', [], 'hmm', '')
+                    embed: embed_1.CreateEmbed('#ff0000', 'Error', '', 'Use the format surah:ayah number where both are numbers big brain', [], 'hmm', '')
                 });
             }
-            else if (ayah_1.match(multipleayatcheck)) {
-                multipleayah_1.multipleayah.command(message);
-            }
             else {
-                // send
                 axios({
                     method: 'get',
                     url: "http://api.alquran.cloud/v1/ayah/" + ayah_1 + "/en.hilali"
@@ -78,7 +72,7 @@ exports.ayah = {
                                 case 2:
                                     _b.sent();
                                     message.channel.send({
-                                        embed: embed_1.CreateEmbed('success', (_a = resp.data.surah) === null || _a === void 0 ? void 0 : _a.englishName, '', resp.data.text, [], 'page-number: ' + resp.data.page, '')
+                                        embed: embed_1.CreateEmbed('#90ee90', (_a = resp.data.surah) === null || _a === void 0 ? void 0 : _a.englishName, '', resp.data.text, [], resp.data.page, '')
                                     });
                                     _b.label = 3;
                                 case 3: return [2 /*return*/];
@@ -89,12 +83,10 @@ exports.ayah = {
                     var resp;
                     return __generator(this, function (_a) {
                         switch (_a.label) {
-                            case 0: return [4 /*yield*/, (err === null || err === void 0 ? void 0 : err.response.data)];
+                            case 0: return [4 /*yield*/, err.response.data];
                             case 1:
                                 resp = _a.sent();
-                                if (resp.status) {
-                                    message.channel.send({ embed: embed_1.CreateEmbed('fail', resp.status, '', resp.data, [], 'Try again', '') });
-                                }
+                                message.channel.send({ embed: embed_1.CreateEmbed('#ff0000', resp.status, '', resp.data, [], 'Try again', '') });
                                 return [2 /*return*/];
                         }
                     });

@@ -52,6 +52,7 @@ var kick_1 = require("../Commands/kick");
 var membercount_1 = require("../Commands/membercount");
 var purge_1 = require("../Commands/purge");
 var unban_1 = require("../Commands/unban");
+var server_info_1 = require("../Commands/server-info");
 var basic_1 = require("../Database/basic");
 console.log(connect_db_1.connect());
 var process = dotenv.config().parsed;
@@ -156,6 +157,9 @@ client.on('message', function (message) { return __awaiter(void 0, void 0, void 
                     }
                     if (message.content.startsWith(prefix + 'unban')) {
                         unban_1.Unban.command(message);
+                    }
+                    if (message.content.startsWith(prefix + 'serverinfo')) {
+                        server_info_1.serverInfo.command(message);
                     }
                     if (message.content === prefix + 'trial') {
                         botping = Date.now() - message.createdTimestamp;
