@@ -54,6 +54,7 @@ var purge_1 = require("../Commands/purge");
 var unban_1 = require("../Commands/unban");
 var server_info_1 = require("../Commands/server-info");
 var avatar_1 = require("../Commands/avatar");
+var userinfo_1 = require("../Commands/userinfo");
 var basic_1 = require("../Database/basic");
 console.log(connect_db_1.connect());
 var process = dotenv.config().parsed;
@@ -90,7 +91,7 @@ client.on('message', function (message) { return __awaiter(void 0, void 0, void 
                 return [4 /*yield*/, basic_1["default"].findOne({ server_id: search })];
             case 1:
                 p = _b.sent();
-                prefix = p ? p.prefix : '<';
+                prefix = p ? p['prefix'] : '<';
                 if (!(message.content.toLowerCase() == 'as')) return [3 /*break*/, 3];
                 return [4 /*yield*/, message.channel.send('السَّلاَم عَلَيْكُمْ وَرَحْمَةُ اللهِ وَبَرَكَاتُهُ')];
             case 2:
@@ -134,6 +135,9 @@ client.on('message', function (message) { return __awaiter(void 0, void 0, void 
                     }
                     if (message.content.startsWith(prefix + 'serverinfo')) {
                         server_info_1.serverInfo.command(message);
+                    }
+                    if (message.content.startsWith(prefix + 'userinfo')) {
+                        userinfo_1.userInfo.command(message, client);
                     }
                     if (message.content.startsWith(prefix + 'av')) {
                         avatar_1.Avatar.command(message, client);
