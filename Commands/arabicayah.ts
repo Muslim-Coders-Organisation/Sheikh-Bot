@@ -1,7 +1,7 @@
 import * as inter from './int'
 import * as discord from 'discord.js'
 import { CreateEmbed } from './embed'
-import * as axios from 'axios'
+import axios from 'axios'
 export const arayah: inter.command = {
     title: 'Getting Ayah in Arabic',
     description: 'fetching a particular ayah from the Quran Surah Number:Ayah Number',
@@ -33,7 +33,7 @@ export const arayah: inter.command = {
                                     '',
                                     resp.data.text,
                                     [],
-                                    'page number: '+resp.data.page, '')
+                                    'page number: ' + resp.data.page, '')
                             })
 
                         }

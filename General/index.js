@@ -39,7 +39,7 @@ exports.__esModule = true;
 // Imports
 var Discord = require("discord.js");
 var dotenv = require("dotenv");
-// commands
+// commandsy
 var recreateChannel_1 = require("../Commands/recreateChannel");
 var config_prefix_1 = require("../Commands/config-prefix");
 var ban_1 = require("../Commands/ban");
@@ -53,6 +53,7 @@ var membercount_1 = require("../Commands/membercount");
 var purge_1 = require("../Commands/purge");
 var unban_1 = require("../Commands/unban");
 var server_info_1 = require("../Commands/server-info");
+var avatar_1 = require("../Commands/avatar");
 var basic_1 = require("../Database/basic");
 console.log(connect_db_1.connect());
 var process = dotenv.config().parsed;
@@ -131,6 +132,12 @@ client.on('message', function (message) { return __awaiter(void 0, void 0, void 
                     if (message.content.toLowerCase() == prefix + 'membercount') {
                         membercount_1.memberCount.command(message);
                     }
+                    if (message.content.startsWith(prefix + 'serverinfo')) {
+                        server_info_1.serverInfo.command(message);
+                    }
+                    if (message.content.startsWith(prefix + 'av')) {
+                        avatar_1.Avatar.command(message, client);
+                    }
                     /* Islamic Commands */
                     if (message.content.startsWith(prefix + 'q')) {
                         ayah_1.ayah.command(message);
@@ -157,9 +164,6 @@ client.on('message', function (message) { return __awaiter(void 0, void 0, void 
                     }
                     if (message.content.startsWith(prefix + 'unban')) {
                         unban_1.Unban.command(message);
-                    }
-                    if (message.content.startsWith(prefix + 'serverinfo')) {
-                        server_info_1.serverInfo.command(message);
                     }
                     if (message.content === prefix + 'trial') {
                         botping = Date.now() - message.createdTimestamp;

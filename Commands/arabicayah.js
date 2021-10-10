@@ -38,7 +38,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 exports.__esModule = true;
 exports.arayah = void 0;
 var embed_1 = require("./embed");
-var axios = require("axios");
+var axios_1 = require("axios");
 exports.arayah = {
     title: 'Getting Ayah in Arabic',
     description: 'fetching a particular ayah from the Quran Surah Number:Ayah Number',
@@ -55,7 +55,7 @@ exports.arayah = {
             }
             else {
                 // send
-                axios({
+                axios_1["default"]({
                     method: 'get',
                     url: "http://api.alquran.cloud/v1/ayah/" + ayah + "/ar"
                 })
