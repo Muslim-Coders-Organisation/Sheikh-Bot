@@ -18,6 +18,8 @@ import { Purge } from '../Commands/purge'
 import { Unban } from '../Commands/unban'
 import { serverInfo } from '../Commands/server-info'
 import { Avatar } from '../Commands/avatar'
+import { userInfo } from '../Commands/userinfo';
+
 import M from '../Database/basic'
 
 
@@ -53,7 +55,7 @@ client.on('message', async message => {
       /* Normal Text Commands */
       let search = String(message?.guild?.id)
       let p = await M.findOne({ server_id: search })
-      prefix = p ? p.prefix : '<'
+      prefix = p ? p['prefix'] : '<'
       if (message.content.toLowerCase() == 'as') {
         await message.channel.send('السَّلاَم عَلَيْكُمْ وَرَحْمَةُ اللهِ وَبَرَكَاتُهُ')
       }
@@ -80,6 +82,9 @@ client.on('message', async message => {
         }
         if (message.content.startsWith(prefix + 'serverinfo')) {
           serverInfo.command(message)
+        }
+        if (message.content.startsWith(prefix + 'userinfo')) {
+          userInfo.command(message, client)
         }
         if (message.content.startsWith(prefix + 'av')) {
           Avatar.command(message, client)
