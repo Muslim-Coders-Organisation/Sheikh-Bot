@@ -55,6 +55,7 @@ var unban_1 = require("../Commands/unban");
 var server_info_1 = require("../Commands/server-info");
 var avatar_1 = require("../Commands/avatar");
 var userinfo_1 = require("../Commands/userinfo");
+var verification_1 = require("../commands/verification");
 var basic_1 = require("../Database/basic");
 console.log(connect_db_1.connect());
 var process = dotenv.config().parsed;
@@ -159,6 +160,9 @@ client.on('message', function (message) { return __awaiter(void 0, void 0, void 
                     }
                     if (message.content.startsWith(prefix + 'purge')) {
                         purge_1.Purge.command(message);
+                    }
+                    if (message.content.startsWith(prefix + 'vftest')) {
+                        verification_1.VerifyCreate.command(message);
                     }
                     if (message.content.startsWith(prefix + 'kick')) {
                         kick_1.KickUser.command(message);

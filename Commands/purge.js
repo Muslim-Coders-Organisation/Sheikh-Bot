@@ -8,9 +8,9 @@ exports.Purge = {
     category: "moderation-general",
     command: function command(message) {
         if (message.content.split(' ').length == 2 && Number(message.content.split(' ')[1]) && message.member.hasPermission("MANAGE_MESSAGES")) {
-            var num = Number(message.content.split(' ')[1]);
-            message.channel.bulkDelete(num)
-                .then(function (x) { return message.channel.send('${num} messages has been deleted'); })["catch"](function (error) { return message.channel.send("Messages older than 14 days can't be deleted"); });
+            var num_1 = Number(message.content.split(' ')[1]);
+            message.channel.bulkDelete(num_1)
+                .then(function (x) { return message.channel.send(num_1 + " messages has been deleted"); })["catch"](function (error) { return message.channel.send("Messages older than 14 days can't be deleted"); });
         }
         else {
             var errorEmbed = new discord.MessageEmbed()
