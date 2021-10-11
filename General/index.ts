@@ -43,10 +43,14 @@ const client = new Discord.Client({
 
 let prefix: String = '<'
 // later add an option to change the prefix in the server it is 
-
 client.on('ready', () => {
   console.log(client?.user?.username + ' is active');
 });
+
+client.on('guildMemberAdd', async (member: any) => {
+  console.log(member)
+  VerifyCreate.command(member)
+})
 
 client.on('message', async message => {
   if (message.channel.type !== "dm") {
@@ -109,9 +113,6 @@ client.on('message', async message => {
         }
         if (message.content.startsWith(prefix + 'purge')) {
           Purge.command(message)
-        }
-        if (message.content.startsWith(prefix + 'vftest')) {
-          VerifyCreate.command(message)
         }
         if (message.content.startsWith(prefix + 'kick')) {
           KickUser.command(message)
