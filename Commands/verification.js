@@ -99,6 +99,7 @@ exports.VerifyCreate = {
                         })["catch"](console.error)];
                     case 4:
                         ch = _a.sent();
+                        ch.send(message.author.tag + " created the ticket here");
                         return [2 /*return*/];
                 }
             });

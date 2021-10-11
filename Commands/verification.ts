@@ -12,6 +12,7 @@ export const VerifyCreate: command = {
         message.guild.channels.cache.forEach((channel: any) => {
             if (channel.type == 'category') {
                 if (channel.name == 'BVerification') {
+
                     exists = true
                     parent = channel.id
                 }
@@ -62,6 +63,8 @@ export const VerifyCreate: command = {
             id = c.id
         })
             .catch(console.error)
+
+        ch.send(`${message.author.tag} created the ticket here`)
 
 
     }
