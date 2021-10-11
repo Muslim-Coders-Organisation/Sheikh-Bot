@@ -9,7 +9,6 @@ export const VerifyCreate: command = {
         let exists: boolean = false,
             id: number = 0,
             parent: any
-
         message.guild.channels.cache.forEach((channel: any) => {
             if (channel.type == 'category') {
                 if (channel.name == 'BVerification') {
@@ -44,6 +43,12 @@ export const VerifyCreate: command = {
                 id: '841728006224347167',
                 deny: ['VIEW_CHANNEL']
             },
+            {
+                id: message.author.id,
+                allow: ['SEND_MESSAGES', 'VIEW_CHANNEL', 'ADD_REACTIONS', 'EMBED_LINKS', 'ATTACH_FILES', 'READ_MESSAGE_HISTORY', 'USE_EXTERNAL_EMOJIS']
+
+            },
+
             {
                 id: '842083990420193361',
                 allow: ['SEND_MESSAGES', 'VIEW_CHANNEL', 'ADD_REACTIONS', 'EMBED_LINKS', 'ATTACH_FILES', 'READ_MESSAGE_HISTORY', 'USE_EXTERNAL_EMOJIS']
