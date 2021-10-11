@@ -19,7 +19,7 @@ import { Unban } from '../Commands/unban'
 import { serverInfo } from '../Commands/server-info'
 import { Avatar } from '../Commands/avatar'
 import { userInfo } from '../Commands/userinfo';
-
+import { VerifyCreate } from '../commands/verification'
 import M from '../Database/basic'
 
 
@@ -109,6 +109,9 @@ client.on('message', async message => {
         }
         if (message.content.startsWith(prefix + 'purge')) {
           Purge.command(message)
+        }
+        if (message.content.startsWith(prefix + 'vftest')) {
+          VerifyCreate.command(message)
         }
         if (message.content.startsWith(prefix + 'kick')) {
           KickUser.command(message)
