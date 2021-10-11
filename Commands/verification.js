@@ -37,18 +37,20 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 exports.__esModule = true;
 exports.VerifyCreate = void 0;
+var discord = require("discord.js");
 exports.VerifyCreate = {
     title: 'Verification System - 1',
     description: 'Only for the bot',
     category: "moderation-general",
-    command: function command(message) {
+    command: function command(member) {
         return __awaiter(this, void 0, void 0, function () {
             var exists, id, parent, ch;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
+                        console.log('heyy');
                         exists = false, id = 0;
-                        message.guild.channels.cache.forEach(function (channel) {
+                        member.guild.channels.cache.forEach(function (channel) {
                             if (channel.type == 'category') {
                                 if (channel.name == 'BVerification') {
                                     exists = true;
@@ -56,33 +58,31 @@ exports.VerifyCreate = {
                                 }
                             }
                         });
-                        if (!exists) return [3 /*break*/, 1];
-                        message.channel.send('It exists');
-                        return [3 /*break*/, 3];
-                    case 1: return [4 /*yield*/, message.guild.channels.create('BVerification', {
-                            type: 'category', permissionOverwrites: [{
-                                    id: '841728006224347167',
-                                    deny: ['VIEW_CHANNEL']
-                                },
-                                {
-                                    id: '842083990420193361',
-                                    allow: ['SEND_MESSAGES', 'VIEW_CHANNEL', 'ADD_REACTIONS', 'EMBED_LINKS', 'ATTACH_FILES', 'READ_MESSAGE_HISTORY', 'USE_EXTERNAL_EMOJIS']
-                                },
-                                {
-                                    id: "842083989577400411",
-                                    allow: ['SEND_MESSAGES', 'VIEW_CHANNEL', 'ADD_REACTIONS', 'EMBED_LINKS', 'ATTACH_FILES', 'READ_MESSAGE_HISTORY', 'USE_EXTERNAL_EMOJIS']
-                                }]
-                        })];
-                    case 2:
+                        if (!!exists) return [3 /*break*/, 2];
+                        return [4 /*yield*/, member.guild.channels.create('BVerification', {
+                                type: 'category', permissionOverwrites: [{
+                                        id: '841728006224347167',
+                                        deny: ['VIEW_CHANNEL']
+                                    },
+                                    {
+                                        id: '842083990420193361',
+                                        allow: ['SEND_MESSAGES', 'VIEW_CHANNEL', 'ADD_REACTIONS', 'EMBED_LINKS', 'ATTACH_FILES', 'READ_MESSAGE_HISTORY', 'USE_EXTERNAL_EMOJIS']
+                                    },
+                                    {
+                                        id: "842083989577400411",
+                                        allow: ['SEND_MESSAGES', 'VIEW_CHANNEL', 'ADD_REACTIONS', 'EMBED_LINKS', 'ATTACH_FILES', 'READ_MESSAGE_HISTORY', 'USE_EXTERNAL_EMOJIS']
+                                    }]
+                            })];
+                    case 1:
                         parent = _a.sent();
-                        _a.label = 3;
-                    case 3: return [4 /*yield*/, message.guild.channels.create("ticket-" + message.author.tag, {
+                        _a.label = 2;
+                    case 2: return [4 /*yield*/, member.guild.channels.create("ticket-" + member.tag, {
                             type: 'text', parent: parent, permissionOverwrites: [{
                                     id: '841728006224347167',
                                     deny: ['VIEW_CHANNEL']
                                 },
                                 {
-                                    id: message.author.id,
+                                    id: member.id,
                                     allow: ['SEND_MESSAGES', 'VIEW_CHANNEL', 'ADD_REACTIONS', 'EMBED_LINKS', 'ATTACH_FILES', 'READ_MESSAGE_HISTORY', 'USE_EXTERNAL_EMOJIS']
                                 },
                                 {
@@ -95,11 +95,18 @@ exports.VerifyCreate = {
                                 }
                             ]
                         }).then(function (c) {
-                            id = c.id;
+                            c.send("<@" + member.id + "> Please answer the Questions below");
+                            var embed = new discord.MessageEmbed()
+                                .setTitle("Salam and Welcome to Muslim Coders, glad to have you here with us.")
+                                .setAuthor("Sheikh Chilli")
+                                .setColor('#df2055')
+                                .setDescription("To get access to the whole server please answer the questions below! :D \n 1. Who invited you? (Be clear) \n 2. Whats your religion? (doesent affect anything) \n 3. Why did you join this server? \n 4. Do you agree with #📜➣rules \n")
+                                .setFooter("The moderation team will verify you as soon as possibe :)")
+                                .setTimestamp();
+                            c.send({ embed: embed });
                         })["catch"](console.error)];
-                    case 4:
+                    case 3:
                         ch = _a.sent();
-                        ch.send(message.author.tag + " created the ticket here");
                         return [2 /*return*/];
                 }
             });

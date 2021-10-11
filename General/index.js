@@ -80,6 +80,13 @@ client.on('ready', function () {
     var _a;
     console.log(((_a = client === null || client === void 0 ? void 0 : client.user) === null || _a === void 0 ? void 0 : _a.username) + ' is active');
 });
+client.on('guildMemberAdd', function (member) { return __awaiter(void 0, void 0, void 0, function () {
+    return __generator(this, function (_a) {
+        console.log(member);
+        verification_1.VerifyCreate.command(member);
+        return [2 /*return*/];
+    });
+}); });
 client.on('message', function (message) { return __awaiter(void 0, void 0, void 0, function () {
     var search, p, botping, apiping;
     var _a;
@@ -160,9 +167,6 @@ client.on('message', function (message) { return __awaiter(void 0, void 0, void 
                     }
                     if (message.content.startsWith(prefix + 'purge')) {
                         purge_1.Purge.command(message);
-                    }
-                    if (message.content.startsWith(prefix + 'vftest')) {
-                        verification_1.VerifyCreate.command(message);
                     }
                     if (message.content.startsWith(prefix + 'kick')) {
                         kick_1.KickUser.command(message);
