@@ -9,6 +9,7 @@ export const VerifyCreate: command = {
         let exists: boolean = false,
             id: number = 0,
             parent: any
+        message.channel.send("Creating channel, please wait");
         message.guild.channels.cache.forEach((channel: any) => {
             if (channel.type == 'category') {
                 if (channel.name == 'BVerification') {
