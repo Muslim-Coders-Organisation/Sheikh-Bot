@@ -42,7 +42,7 @@ export const Avatar: command = {
                         }
                     )
                     .setFooter("Try again");
-                message.channel.send({ embed: errorEmbed })
+                message.channel.send({ embeds: errorEmbed })
             })
         }
     }

@@ -14,7 +14,7 @@ export const arayah: inter.command = {
 
             if (!ayah.match(ayatCheck)) {
                 message.channel.send({
-                    embed: CreateEmbed('fail', 'Error', '', 'Use the format surah:ayah number where both are numbers big brain', [], 'hmm', '')
+                    embeds: CreateEmbed('fail', 'Error', '', 'Use the format surah:ayah number where both are numbers big brain', [], 'hmm', '')
                 })
             } else {
                 // send
@@ -42,7 +42,7 @@ export const arayah: inter.command = {
                     .catch(async (err: any) => {
                         const resp = await err?.response.data
                         if (resp.status) {
-                            message.channel.send({ embed: CreateEmbed('fail', resp.status, '', resp.data, [], 'Try again', '') })
+                            message.channel.send({ embeds: CreateEmbed('fail', resp.status, '', resp.data, [], 'Try again', '') })
                         }
                     })
 

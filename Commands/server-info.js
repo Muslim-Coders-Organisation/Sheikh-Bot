@@ -15,12 +15,12 @@ exports.serverInfo = {
             .setDescription("About **" + message.guild + "**")
             .addField("**Date Created**", "Server Created on **" + message.guild.createdAt.toLocaleString() + "**")
             .addField("**Owner**", "The Owner of This Server is " + message.guild.owner)
-            .addField("**Member Count**", "This Server Has ` " + ("" + message.guild.memberCount) + " ` **Members**")
-            .addField("**Emoji Count**", "This Server Has ` " + ("" + message.guild.emojis.cache.size) + " ` **Emojis**")
-            .addField("**Roles Count**", "This Server Has ` " + ("" + message.guild.roles.cache.size) + " ` **Roles**")
-            .addField("**Channels Count**", "This Server Has ` " + ("" + message.guild.channels.cache.size) + " ` **Channels**")
+            .addField("**Member Count**", "This Server Has ` " + String(message.guild.memberCount) + " ` **Members**")
+            .addField("**Emoji Count**", "This Server Has ` " + String(message.guild.emojis.cache.size) + " ` **Emojis**")
+            .addField("**Roles Count**", "This Server Has ` " + String(message.guild.roles.cache.size) + " ` **Roles**")
+            .addField("**Channels Count**", "This Server Has ` " + String(message.guild.channels.cache.size) + " ` **Channels**")
             .addField('Location', message.guild.region, true)
             .setTimestamp();
-        message.channel.send(ServerInfoEmbed);
+        message.channel.send({ embeds: [ServerInfoEmbed] });
     }
 };

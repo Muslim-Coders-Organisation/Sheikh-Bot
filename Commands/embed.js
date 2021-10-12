@@ -19,6 +19,6 @@ function CreateEmbed(c, title, author, desc, fields, footer, thumbnail) {
     }
     embed.setTimestamp()
         .setFooter(footer);
-    return embed;
+    return [embed];
 }
 exports.CreateEmbed = CreateEmbed;

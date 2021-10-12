@@ -15,7 +15,7 @@ export const ayah: inter.command = {
             const multipleayatcheck = /[1234567890:-]/
             if (!ayah.match(ayatCheck)) {
                 message.channel.send({
-                    embed: CreateEmbed('fail', 'Error', '', 'Use the format surah:ayah number where both are numbers big brain', [], 'hmm', '')
+                    embeds: CreateEmbed('fail', 'Error', '', 'Use the format surah:ayah number where both are numbers big brain', [], 'hmm', '')
                 })
             }
             else if (ayah.match(multipleayatcheck)) {
@@ -48,7 +48,7 @@ export const ayah: inter.command = {
 
                         const resp: any = await err?.response.data
                         if (resp.status) {
-                            message.channel.send({ embed: CreateEmbed('fail', resp.status, '', resp.data, [], 'Try again', '') })
+                            message.channel.send({ embeds: CreateEmbed('fail', resp.status, '', resp.data, [], 'Try again', '') })
                         }
                     })
 

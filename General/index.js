@@ -38,6 +38,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 exports.__esModule = true;
 // Imports
 var Discord = require("discord.js");
+var discord_js_1 = require("discord.js");
 var dotenv = require("dotenv");
 // commandsy
 var recreateChannel_1 = require("../Commands/recreateChannel");
@@ -58,6 +59,11 @@ var userinfo_1 = require("../Commands/userinfo");
 var verification_1 = require("../commands/verification");
 var basic_1 = require("../Database/basic");
 console.log(connect_db_1.connect());
+var INTENTS = [
+    discord_js_1.Intents.FLAGS.GUILDS,
+    discord_js_1.Intents.FLAGS.GUILD_PRESENCES,
+    discord_js_1.Intents.FLAGS.GUILD_MESSAGES,
+];
 var process = dotenv.config().parsed;
 //console.log(process)
 var getToken = function (obj) {
@@ -65,14 +71,7 @@ var getToken = function (obj) {
     return token;
 };
 var client = new Discord.Client({
-    fetchAllMembers: false,
-    presence: {
-        status: 'online',
-        activity: {
-            name: "Quran",
-            type: 'LISTENING'
-        }
-    }
+    intents: INTENTS
 });
 var prefix = '<';
 // later add an option to change the prefix in the server it is 
@@ -87,13 +86,13 @@ client.on('guildMemberAdd', function (member) { return __awaiter(void 0, void 0,
         return [2 /*return*/];
     });
 }); });
-client.on('message', function (message) { return __awaiter(void 0, void 0, void 0, function () {
+client.on('messageCreate', function (message) { return __awaiter(void 0, void 0, void 0, function () {
     var search, p, botping, apiping;
     var _a;
     return __generator(this, function (_b) {
         switch (_b.label) {
             case 0:
-                if (!(message.channel.type !== "dm")) return [3 /*break*/, 14];
+                if (!(message.channel.type !== "DM")) return [3 /*break*/, 14];
                 if (!(message.author.bot == false)) return [3 /*break*/, 14];
                 search = String((_a = message === null || message === void 0 ? void 0 : message.guild) === null || _a === void 0 ? void 0 : _a.id);
                 return [4 /*yield*/, basic_1["default"].findOne({ server_id: search })];
@@ -180,7 +179,7 @@ client.on('message', function (message) { return __awaiter(void 0, void 0, void 
                     if (message.content === prefix + 'trial') {
                         botping = Date.now() - message.createdTimestamp;
                         apiping = Math.round(client.ws.ping);
-                        message.channel.send({ embed: embed_1.CreateEmbed("success", "Success!", "", "Bot Latency: " + botping + "ms \nDiscord API Latency: " + apiping + "ms", [], "", "") });
+                        message.channel.send({ embeds: [embed_1.CreateEmbed("success", "Success!", "", "Bot Latency: " + botping + "ms \nDiscord API Latency: " + apiping + "ms", [], "", "")] });
                     }
                     if (message.content.startsWith(prefix + 'warn')) {
                         warn_1.warnUser.command(client, message);

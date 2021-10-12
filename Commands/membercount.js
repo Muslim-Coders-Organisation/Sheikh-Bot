@@ -8,6 +8,6 @@ exports.memberCount = {
     category: 'general',
     command: function command(message) {
         var _a;
-        message.channel.send({ embed: embed_1.CreateEmbed('others', 'Members', '', (_a = message === null || message === void 0 ? void 0 : message.guild) === null || _a === void 0 ? void 0 : _a.memberCount, [], '', '') });
+        message.channel.send({ embeds: embed_1.CreateEmbed('others', 'Members', '', String((_a = message === null || message === void 0 ? void 0 : message.guild) === null || _a === void 0 ? void 0 : _a.memberCount), [], '', '') });
     }
 };

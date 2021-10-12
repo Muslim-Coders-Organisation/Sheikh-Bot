@@ -39,7 +39,7 @@ exports.Avatar = {
                     value: "Seems like the user id you provided wasn't right, please try again witht he correct id"
                 })
                     .setFooter("Try again");
-                message.channel.send({ embed: errorEmbed });
+                message.channel.send({ embeds: errorEmbed });
             });
         }
     }

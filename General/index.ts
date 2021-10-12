@@ -1,5 +1,6 @@
 // Imports
 import * as Discord from 'discord.js'
+import { Intents } from 'discord.js';
 import * as dotenv from 'dotenv';
 import * as mongoose from 'mongoose';
 
@@ -24,6 +25,13 @@ import M from '../Database/basic'
 
 
 console.log(connect())
+
+const INTENTS: any = [
+  Intents.FLAGS.GUILDS,
+  Intents.FLAGS.GUILD_PRESENCES,
+  Intents.FLAGS.GUILD_MESSAGES,
+]
+
 const process = dotenv.config().parsed
 //console.log(process)
 const getToken = function (obj: any) {
@@ -31,14 +39,7 @@ const getToken = function (obj: any) {
   return token
 }
 const client = new Discord.Client({
-  fetchAllMembers: false,
-  presence: {
-    status: 'online',
-    activity: {
-      name: `Quran`,
-      type: 'LISTENING'
-    }
-  }
+  intents: INTENTS
 });
 
 let prefix: String = '<'
@@ -52,8 +53,8 @@ client.on('guildMemberAdd', async (member: any) => {
   VerifyCreate.command(member)
 })
 
-client.on('message', async message => {
-  if (message.channel.type !== "dm") {
+client.on('messageCreate', async message => {
+  if (message.channel.type !== "DM") {
     if (message.author.bot == false) {
       //   console.log()
       /* Normal Text Commands */
@@ -126,7 +127,7 @@ client.on('message', async message => {
         if (message.content === prefix + 'trial') {
           const botping = Date.now() - message.createdTimestamp
           const apiping = Math.round(client.ws.ping)
-          message.channel.send({ embed: CreateEmbed("success", "Success!", "", `Bot Latency: ${botping}ms \nDiscord API Latency: ${apiping}ms`, [], "", "") })
+          message.channel.send({ embeds: [CreateEmbed("success", "Success!", "", `Bot Latency: ${botping}ms \nDiscord API Latency: ${apiping}ms`, [], "", "")] })
         }
         if (message.content.startsWith(prefix + 'warn')) {
           warnUser.command(client, message)

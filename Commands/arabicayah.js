@@ -50,7 +50,7 @@ exports.arayah = {
             var ayatCheck = /[123456789:]/;
             if (!ayah.match(ayatCheck)) {
                 message.channel.send({
-                    embed: embed_1.CreateEmbed('fail', 'Error', '', 'Use the format surah:ayah number where both are numbers big brain', [], 'hmm', '')
+                    embeds: embed_1.CreateEmbed('fail', 'Error', '', 'Use the format surah:ayah number where both are numbers big brain', [], 'hmm', '')
                 });
             }
             else {
@@ -88,7 +88,7 @@ exports.arayah = {
                             case 1:
                                 resp = _a.sent();
                                 if (resp.status) {
-                                    message.channel.send({ embed: embed_1.CreateEmbed('fail', resp.status, '', resp.data, [], 'Try again', '') });
+                                    message.channel.send({ embeds: embed_1.CreateEmbed('fail', resp.status, '', resp.data, [], 'Try again', '') });
                                 }
                                 return [2 /*return*/];
                         }

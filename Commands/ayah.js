@@ -52,7 +52,7 @@ exports.ayah = {
             var multipleayatcheck = /[1234567890:-]/;
             if (!ayah_1.match(ayatCheck)) {
                 message.channel.send({
-                    embed: embed_1.CreateEmbed('fail', 'Error', '', 'Use the format surah:ayah number where both are numbers big brain', [], 'hmm', '')
+                    embeds: embed_1.CreateEmbed('fail', 'Error', '', 'Use the format surah:ayah number where both are numbers big brain', [], 'hmm', '')
                 });
             }
             else if (ayah_1.match(multipleayatcheck)) {
@@ -93,7 +93,7 @@ exports.ayah = {
                             case 1:
                                 resp = _a.sent();
                                 if (resp.status) {
-                                    message.channel.send({ embed: embed_1.CreateEmbed('fail', resp.status, '', resp.data, [], 'Try again', '') });
+                                    message.channel.send({ embeds: embed_1.CreateEmbed('fail', resp.status, '', resp.data, [], 'Try again', '') });
                                 }
                                 return [2 /*return*/];
                         }
