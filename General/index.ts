@@ -87,10 +87,10 @@ client.on('messageCreate', async message => {
         }
         if (message.content.startsWith(prefix + 'serverinfo')) {
           serverInfo.command(message, client)
-        }/* 
-        if (message.content.startsWith(prefix + 'userinfo')) {
-          userInfo.command(message, client)
         }
+        if (message.content.startsWith(prefix + 'userinfo')) {
+          userInfo.command(message)
+        }/* 
         if (message.content.startsWith(prefix + 'av')) {
           Avatar.command(message, client)
         }
@@ -123,15 +123,15 @@ client.on('messageCreate', async message => {
         }
         if (message.content.startsWith(prefix + 'unban')) {
           Unban.command(message)
-        }*/
+        }
         if (message.content === prefix + 'trial') {
           const botping = Date.now() - message.createdTimestamp
           const apiping = Math.round(client.ws.ping)
-          message.channel.send({ embeds: [CreateEmbed("success", "Success!", "", `Bot Latency: ${botping}ms \nDiscord API Latency: ${apiping}ms`, [], "", "")] })
+          message.channel.send({ embeds: CreateEmbed("success", "Success!", "", `Bot Latency: ${botping}ms \nDiscord API Latency: ${apiping}ms`, [], "", "") })
         }
         if (message.content.startsWith(prefix + 'warn')) {
           warnUser.command(client, message)
-        }
+        }*/
       }
 
     }

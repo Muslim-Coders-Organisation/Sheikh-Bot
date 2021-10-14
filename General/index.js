@@ -45,6 +45,7 @@ var warn_1 = require("../Commands/warn");
 var embed_1 = require("../Commands/embed");
 var membercount_1 = require("../Commands/membercount");
 var server_info_1 = require("../Commands/server-info");
+var userinfo_1 = require("../Commands/userinfo");
 var verification_1 = require("../commands/verification");
 var basic_1 = require("../Database/basic");
 console.log(connect_db_1.connect());
@@ -131,10 +132,10 @@ client.on('messageCreate', function (message) { return __awaiter(void 0, void 0,
                     }
                     if (message.content.startsWith(prefix + 'serverinfo')) {
                         server_info_1.serverInfo.command(message, client);
-                    } /*
-                    if (message.content.startsWith(prefix + 'userinfo')) {
-                      userInfo.command(message, client)
                     }
+                    if (message.content.startsWith(prefix + 'userinfo')) {
+                        userinfo_1.userInfo.command(message, client);
+                    } /*
                     if (message.content.startsWith(prefix + 'av')) {
                       Avatar.command(message, client)
                     }
