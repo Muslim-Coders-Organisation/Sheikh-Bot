@@ -86,15 +86,15 @@ client.on('messageCreate', async message => {
           memberCount.command(message)
         }
         if (message.content.startsWith(prefix + 'serverinfo')) {
-          serverInfo.command(message)
-        }
+          serverInfo.command(message, client)
+        }/* 
         if (message.content.startsWith(prefix + 'userinfo')) {
           userInfo.command(message, client)
         }
         if (message.content.startsWith(prefix + 'av')) {
           Avatar.command(message, client)
         }
-        /* Islamic Commands */
+        /* Islamic Commands 
         if (message.content.startsWith(prefix + 'q')) {
           ayah.command(message)
         }
@@ -103,12 +103,12 @@ client.on('messageCreate', async message => {
           arayah.command(message)
         }
 
-        /* Config Commands */
+        /* Config Commands
         if (message.content.startsWith(prefix + 'config prefix')) {
           configPrefix.command(message, p)
         }
 
-        /* Normal Moderation Commands */
+        /* Normal Moderation Commands 
         if (message.content === prefix + 'resetChannel') {
           resetChannel.command(message)
         }
@@ -123,7 +123,7 @@ client.on('messageCreate', async message => {
         }
         if (message.content.startsWith(prefix + 'unban')) {
           Unban.command(message)
-        }
+        }*/
         if (message.content === prefix + 'trial') {
           const botping = Date.now() - message.createdTimestamp
           const apiping = Math.round(client.ws.ping)

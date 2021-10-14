@@ -40,22 +40,11 @@ exports.__esModule = true;
 var Discord = require("discord.js");
 var discord_js_1 = require("discord.js");
 var dotenv = require("dotenv");
-// commandsy
-var recreateChannel_1 = require("../Commands/recreateChannel");
-var config_prefix_1 = require("../Commands/config-prefix");
-var ban_1 = require("../Commands/ban");
 var connect_db_1 = require("./connect_db");
-var ayah_1 = require("../Commands/ayah");
-var arabicayah_1 = require("../Commands/arabicayah");
 var warn_1 = require("../Commands/warn");
 var embed_1 = require("../Commands/embed");
-var kick_1 = require("../Commands/kick");
 var membercount_1 = require("../Commands/membercount");
-var purge_1 = require("../Commands/purge");
-var unban_1 = require("../Commands/unban");
 var server_info_1 = require("../Commands/server-info");
-var avatar_1 = require("../Commands/avatar");
-var userinfo_1 = require("../Commands/userinfo");
 var verification_1 = require("../commands/verification");
 var basic_1 = require("../Database/basic");
 console.log(connect_db_1.connect());
@@ -141,41 +130,44 @@ client.on('messageCreate', function (message) { return __awaiter(void 0, void 0,
                         membercount_1.memberCount.command(message);
                     }
                     if (message.content.startsWith(prefix + 'serverinfo')) {
-                        server_info_1.serverInfo.command(message);
-                    }
+                        server_info_1.serverInfo.command(message, client);
+                    } /*
                     if (message.content.startsWith(prefix + 'userinfo')) {
-                        userinfo_1.userInfo.command(message, client);
+                      userInfo.command(message, client)
                     }
                     if (message.content.startsWith(prefix + 'av')) {
-                        avatar_1.Avatar.command(message, client);
+                      Avatar.command(message, client)
                     }
-                    /* Islamic Commands */
+                    /* Islamic Commands
                     if (message.content.startsWith(prefix + 'q')) {
-                        ayah_1.ayah.command(message);
+                      ayah.command(message)
                     }
+            
                     if (message.content.startsWith(prefix + 'aq')) {
-                        arabicayah_1.arayah.command(message);
+                      arayah.command(message)
                     }
-                    /* Config Commands */
+            
+                    /* Config Commands
                     if (message.content.startsWith(prefix + 'config prefix')) {
-                        config_prefix_1.configPrefix.command(message, p);
+                      configPrefix.command(message, p)
                     }
-                    /* Normal Moderation Commands */
+            
+                    /* Normal Moderation Commands
                     if (message.content === prefix + 'resetChannel') {
-                        recreateChannel_1.resetChannel.command(message);
+                      resetChannel.command(message)
                     }
                     if (message.content.startsWith(prefix + 'purge')) {
-                        purge_1.Purge.command(message);
+                      Purge.command(message)
                     }
                     if (message.content.startsWith(prefix + 'kick')) {
-                        kick_1.KickUser.command(message);
+                      KickUser.command(message)
                     }
                     if (message.content.startsWith(prefix + 'ban')) {
-                        ban_1.BanUser.command(message);
+                      BanUser.command(message)
                     }
                     if (message.content.startsWith(prefix + 'unban')) {
-                        unban_1.Unban.command(message);
-                    }
+                      Unban.command(message)
+                    }*/
                     if (message.content === prefix + 'trial') {
                         botping = Date.now() - message.createdTimestamp;
                         apiping = Math.round(client.ws.ping);

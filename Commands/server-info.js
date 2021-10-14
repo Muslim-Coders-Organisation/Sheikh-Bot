@@ -6,21 +6,26 @@ exports.serverInfo = {
     title: 'Server-Info',
     description: 'Returns Information about the server',
     category: 'general',
-    command: function command(message) {
-        var ServerLogo = message.guild.iconURL();
-        var ServerInfoEmbed = new discord.MessageEmbed()
-            .setColor('#b700ff')
-            .setTitle("Server Info")
-            .setImage(ServerLogo)
-            .setDescription("About **" + message.guild + "**")
-            .addField("**Date Created**", "Server Created on **" + message.guild.createdAt.toLocaleString() + "**")
-            .addField("**Owner**", "The Owner of This Server is " + message.guild.owner)
-            .addField("**Member Count**", "This Server Has ` " + String(message.guild.memberCount) + " ` **Members**")
-            .addField("**Emoji Count**", "This Server Has ` " + String(message.guild.emojis.cache.size) + " ` **Emojis**")
-            .addField("**Roles Count**", "This Server Has ` " + String(message.guild.roles.cache.size) + " ` **Roles**")
-            .addField("**Channels Count**", "This Server Has ` " + String(message.guild.channels.cache.size) + " ` **Channels**")
-            .addField('Location', message.guild.region, true)
-            .setTimestamp();
-        message.channel.send({ embeds: [ServerInfoEmbed] });
+    command: function command(message, client) {
+        var name = '';
+        client.users.fetch(message.guild.ownerId).then(function (user) {
+            name = user.username + '#' + user.discriminator;
+            var ServerLogo = message.guild.iconURL();
+            var ServerInfoEmbed = new discord.MessageEmbed()
+                .setColor('#b700ff')
+                .setTitle("Server Info")
+                .setImage(ServerLogo)
+                .setDescription("About **" + message.guild.name + "**")
+                .setFields([
+                { name: "**Date Created**", value: "Server Created on **" + message.guild.createdAt.toLocaleString() + "**" },
+                { name: "**Owner**", value: "The Owner of This Server is **" + name + "**" },
+                { name: "**Member Count**", value: "This Server Has ` " + String(message.guild.memberCount) + " ` **Members**" },
+                { name: "**Emoji Count**", value: "This Server Has ` " + String(message.guild.emojis.cache.size) + " ` **Emojis**" },
+                { name: "**Roles Count**", value: "This Server Has ` " + String(message.guild.roles.cache.size) + " ` **Roles**" },
+                { name: "**Channels Count**", value: "This Server Has ` " + String(message.guild.channels.cache.size) + " ` **Channels**" },
+            ])
+                .setTimestamp();
+            message.channel.send({ embeds: [ServerInfoEmbed] });
+        })["catch"](console.error);
     }
 };
