@@ -6,7 +6,7 @@ export const Purge: command = {
     description: 'Purges all the messages mentioned [ messages should be within 14 days ]',
     category: "moderation-general",
     command: function command(message: any) {
-        if (message.content.split(' ').length == 2 && Number(message.content.split(' ')[1]) && message.member.hasPermission("MANAGE_MESSAGES")) {
+        if (message.content.split(' ').length == 2 && Number(message.content.split(' ')[1]) && message.member.permissions.has(discord.Permissions.FLAGS.MANAGE_MESSAGES)) {
             let num: Number = Number(message.content.split(' ')[1])
             message.channel.bulkDelete(num)
                 .then((x: any) => message.channel.send(`${num} messages has been deleted`))

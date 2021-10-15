@@ -8,7 +8,7 @@ export function CreateEmbed(c: 'success' | 'fail' | 'others', title: string, aut
         .setTitle(title)
         .setAuthor(author)
         .setDescription(desc)
-        .addFields(
+        .setFields(
         )
     thumbnail != undefined ? embed.setThumbnail(thumbnail) : ''
 

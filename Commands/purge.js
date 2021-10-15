@@ -7,7 +7,7 @@ exports.Purge = {
     description: 'Purges all the messages mentioned [ messages should be within 14 days ]',
     category: "moderation-general",
     command: function command(message) {
-        if (message.content.split(' ').length == 2 && Number(message.content.split(' ')[1]) && message.member.hasPermission("MANAGE_MESSAGES")) {
+        if (message.content.split(' ').length == 2 && Number(message.content.split(' ')[1]) && message.member.permissions.has(discord.Permissions.FLAGS.MANAGE_MESSAGES)) {
             var num_1 = Number(message.content.split(' ')[1]);
             message.channel.bulkDelete(num_1)
                 .then(function (x) { return message.channel.send(num_1 + " messages has been deleted"); })["catch"](function (error) { return message.channel.send("Messages older than 14 days can't be deleted"); });

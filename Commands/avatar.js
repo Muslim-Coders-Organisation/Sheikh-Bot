@@ -13,7 +13,7 @@ exports.Avatar = {
                 .setAuthor("Your Avatar")
                 .setImage("https://cdn.discordapp.com/avatars/" + user.id + "/" + user.avatar + ".png?size=256")
                 .setColor('RANDOM');
-            message.reply(embed);
+            message.reply({ embeds: [embed] });
         }
         else if (message.mentions.users.first()) {
             user = message.mentions.users.first();
@@ -21,26 +21,39 @@ exports.Avatar = {
                 .setAuthor("Your Avatar")
                 .setImage("https://cdn.discordapp.com/avatars/" + user.id + "/" + user.avatar + ".png?size=256")
                 .setColor('RANDOM');
-            message.reply(embed);
+            message.reply({ embeds: [embed] });
         }
         else if (message.content.split(' ').length == 2) {
-            client.users.fetch(message.content.split(' ')[1]).then(function (user) {
-                var embed = new discord.MessageEmbed()
-                    .setAuthor("Your Avatar")
-                    .setImage("https://cdn.discordapp.com/avatars/" + user.id + "/" + user.avatar + ".png?size=256")
-                    .setColor('RANDOM');
-                message.reply(embed);
-            })["catch"](function (x) {
+            if (Number(message.content.split(' ')[1])) {
+                client.users.fetch(message.content.split(' ')[1]).then(function (user) {
+                    var embed = new discord.MessageEmbed()
+                        .setAuthor("Your Avatar")
+                        .setImage("https://cdn.discordapp.com/avatars/" + user.id + "/" + user.avatar + ".png?size=256")
+                        .setColor('RANDOM');
+                    message.reply({ embeds: [embed] });
+                })["catch"](function (x) {
+                    var errorEmbed = new discord.MessageEmbed()
+                        .setColor("#ff0000")
+                        .setTitle("Failed")
+                        .setFields({
+                        name: "ID not found",
+                        value: "Seems like the user id you provided wasn't right, please try again witht he correct id"
+                    })
+                        .setFooter("Try again");
+                    message.channel.send({ embeds: [errorEmbed] });
+                });
+            }
+            else {
                 var errorEmbed = new discord.MessageEmbed()
                     .setColor("#ff0000")
                     .setTitle("Failed")
-                    .addFields({
+                    .setFields({
                     name: "ID not found",
                     value: "Seems like the user id you provided wasn't right, please try again witht he correct id"
                 })
                     .setFooter("Try again");
-                message.channel.send({ embeds: errorEmbed });
-            });
+                message.channel.send({ embeds: [errorEmbed] });
+            }
         }
     }
 };

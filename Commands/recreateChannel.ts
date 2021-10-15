@@ -7,8 +7,8 @@ export const resetChannel: inter.command = {
   description: 'Resets the channel, deletes all the messages [ Clones the channel and deletes the current one ]',
   category: "moderation-admin",
   command: function command(message: any) {
-    if (message.member.hasPermission('ADMINISTRATOR')) {
-      message.channel.clone().then((x: any) => { }).catch(console.error)
+    if (message.member.permissions.has(discord.Permissions.FLAGS.ADMINISTRATOR)) {
+      message.channel.clone().then((x: any) => { x.send('Channel has been reset') }).catch(console.error)
       message.channel.delete().then((x: any) => { }).catch(console.error);
     }
     else {

@@ -40,11 +40,17 @@ exports.__esModule = true;
 var Discord = require("discord.js");
 var discord_js_1 = require("discord.js");
 var dotenv = require("dotenv");
+// commandsy
+var recreateChannel_1 = require("../Commands/recreateChannel");
+var config_prefix_1 = require("../Commands/config-prefix");
 var connect_db_1 = require("./connect_db");
-var warn_1 = require("../Commands/warn");
-var embed_1 = require("../Commands/embed");
+var ayah_1 = require("../Commands/ayah");
+var arabicayah_1 = require("../Commands/arabicayah");
+var kick_1 = require("../Commands/kick");
 var membercount_1 = require("../Commands/membercount");
+var purge_1 = require("../Commands/purge");
 var server_info_1 = require("../Commands/server-info");
+var avatar_1 = require("../Commands/avatar");
 var userinfo_1 = require("../Commands/userinfo");
 var verification_1 = require("../commands/verification");
 var basic_1 = require("../Database/basic");
@@ -77,7 +83,7 @@ client.on('guildMemberAdd', function (member) { return __awaiter(void 0, void 0,
     });
 }); });
 client.on('messageCreate', function (message) { return __awaiter(void 0, void 0, void 0, function () {
-    var search, p, botping, apiping;
+    var search, p;
     var _a;
     return __generator(this, function (_b) {
         switch (_b.label) {
@@ -130,53 +136,55 @@ client.on('messageCreate', function (message) { return __awaiter(void 0, void 0,
                     if (message.content.toLowerCase() == prefix + 'membercount') {
                         membercount_1.memberCount.command(message);
                     }
-                    if (message.content.startsWith(prefix + 'serverinfo')) {
+                    if (message.content.toLowerCase().startsWith(prefix + 'serverinfo')) {
                         server_info_1.serverInfo.command(message, client);
                     }
-                    if (message.content.startsWith(prefix + 'userinfo')) {
-                        userinfo_1.userInfo.command(message, client);
-                    } /*
+                    if (message.content.toLowerCase().startsWith(prefix + 'userinfo')) {
+                        userinfo_1.userInfo.command(message);
+                    }
                     if (message.content.startsWith(prefix + 'av')) {
-                      Avatar.command(message, client)
+                        avatar_1.Avatar.command(message, client);
                     }
-                    /* Islamic Commands
+                    /* Islamic Commands */
                     if (message.content.startsWith(prefix + 'q')) {
-                      ayah.command(message)
+                        ayah_1.ayah.command(message);
                     }
-            
                     if (message.content.startsWith(prefix + 'aq')) {
-                      arayah.command(message)
+                        arabicayah_1.arayah.command(message);
                     }
-            
-                    /* Config Commands
+                    /* Config Commands */
                     if (message.content.startsWith(prefix + 'config prefix')) {
-                      configPrefix.command(message, p)
+                        config_prefix_1.configPrefix.command(message, p);
                     }
-            
-                    /* Normal Moderation Commands
+                    /* Normal Moderation Commands */
                     if (message.content === prefix + 'resetChannel') {
-                      resetChannel.command(message)
+                        recreateChannel_1.resetChannel.command(message);
                     }
                     if (message.content.startsWith(prefix + 'purge')) {
-                      Purge.command(message)
+                        purge_1.Purge.command(message);
                     }
                     if (message.content.startsWith(prefix + 'kick')) {
-                      KickUser.command(message)
-                    }
+                        kick_1.KickUser.command(message);
+                    } /*
                     if (message.content.startsWith(prefix + 'ban')) {
                       BanUser.command(message)
-                    }
+                    }/*
                     if (message.content.startsWith(prefix + 'unban')) {
                       Unban.command(message)
-                    }*/
+                    }* /
                     if (message.content === prefix + 'trial') {
-                        botping = Date.now() - message.createdTimestamp;
-                        apiping = Math.round(client.ws.ping);
-                        message.channel.send({ embeds: [embed_1.CreateEmbed("success", "Success!", "", "Bot Latency: " + botping + "ms \nDiscord API Latency: " + apiping + "ms", [], "", "")] });
-                    }
+                      const botping = Date.now() - message.createdTimestamp
+                      const apiping = Math.round(client.ws.ping)
+                      const embed = new Discord.MessageEmbed()
+                        .setColor('RANDOM')
+                        .setTitle("Success!")
+                        .setDescription(`Bot Latency: ${botping}ms \nDiscord API Latency: ${apiping}ms`)
+            
+                      message.channel.send({ embeds: [embed] })
+                    }/*
                     if (message.content.startsWith(prefix + 'warn')) {
-                        warn_1.warnUser.command(client, message);
-                    }
+                      warnUser.command(client, message)
+                    }*/
                 }
                 _b.label = 14;
             case 14: return [2 /*return*/];

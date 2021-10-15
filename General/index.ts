@@ -85,16 +85,16 @@ client.on('messageCreate', async message => {
         if (message.content.toLowerCase() == prefix + 'membercount') {
           memberCount.command(message)
         }
-        if (message.content.startsWith(prefix + 'serverinfo')) {
+        if (message.content.toLowerCase().startsWith(prefix + 'serverinfo')) {
           serverInfo.command(message, client)
         }
-        if (message.content.startsWith(prefix + 'userinfo')) {
+        if (message.content.toLowerCase().startsWith(prefix + 'userinfo')) {
           userInfo.command(message)
-        }/* 
+        }
         if (message.content.startsWith(prefix + 'av')) {
           Avatar.command(message, client)
         }
-        /* Islamic Commands 
+        /* Islamic Commands */
         if (message.content.startsWith(prefix + 'q')) {
           ayah.command(message)
         }
@@ -103,12 +103,12 @@ client.on('messageCreate', async message => {
           arayah.command(message)
         }
 
-        /* Config Commands
+        /* Config Commands */
         if (message.content.startsWith(prefix + 'config prefix')) {
           configPrefix.command(message, p)
         }
 
-        /* Normal Moderation Commands 
+        /* Normal Moderation Commands */
         if (message.content === prefix + 'resetChannel') {
           resetChannel.command(message)
         }
@@ -117,18 +117,23 @@ client.on('messageCreate', async message => {
         }
         if (message.content.startsWith(prefix + 'kick')) {
           KickUser.command(message)
-        }
+        } /* 
         if (message.content.startsWith(prefix + 'ban')) {
           BanUser.command(message)
-        }
+        }/* 
         if (message.content.startsWith(prefix + 'unban')) {
           Unban.command(message)
-        }
+        }* /
         if (message.content === prefix + 'trial') {
           const botping = Date.now() - message.createdTimestamp
           const apiping = Math.round(client.ws.ping)
-          message.channel.send({ embeds: CreateEmbed("success", "Success!", "", `Bot Latency: ${botping}ms \nDiscord API Latency: ${apiping}ms`, [], "", "") })
-        }
+          const embed = new Discord.MessageEmbed()
+            .setColor('RANDOM')
+            .setTitle("Success!")
+            .setDescription(`Bot Latency: ${botping}ms \nDiscord API Latency: ${apiping}ms`)
+
+          message.channel.send({ embeds: [embed] })
+        }/* 
         if (message.content.startsWith(prefix + 'warn')) {
           warnUser.command(client, message)
         }*/

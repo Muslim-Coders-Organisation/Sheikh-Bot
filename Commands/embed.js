@@ -9,7 +9,7 @@ function CreateEmbed(c, title, author, desc, fields, footer, thumbnail) {
         .setTitle(title)
         .setAuthor(author)
         .setDescription(desc)
-        .addFields();
+        .setFields();
     thumbnail != undefined ? embed.setThumbnail(thumbnail) : '';
     // Fields should be added in the form of a list [[title,value,inline]]
     if (fields.length > 0) {
