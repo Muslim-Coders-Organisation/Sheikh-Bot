@@ -8,7 +8,7 @@ export const warnUser: command = {
     category: 'moderation-general',
     command: function command(client: any, message: any) {
         if (message.content.split(' ')[0] == ';warn' && message.content.split(' ').length > 1 && message.mentions.users.first()) {
-            if (message.member.hasPermission("KICK_MEMBERS")) {
+            if (message.member.permissions.has(discord.Permissions.FLAGS.KICK_MEMBERS)) {
                 const mod = message.author.tag;
                 const cmdArguments = message.content.split(' ')
                 let reason = []
@@ -23,11 +23,11 @@ export const warnUser: command = {
                 }
                 const user = message.mentions.users.first();
 
-                if (mod != user) {
+                if (message.author.id != user.id) {
                     const warnEmbed = new discord.MessageEmbed()
                         .setColor("#FFA500")
                         .setTitle("You have been warned")
-                        .addFields(
+                        .setFields(
                             {
                                 name: "Event:",
                                 value: `${mod} has issued a warning to you.`,
@@ -39,7 +39,7 @@ export const warnUser: command = {
                         )
                         .setFooter("Read the rules and behave nicely :)");
                     message.channel.send('Successfully warned')
-                    user.send(warnEmbed).catch((err: any) => console.log(err));
+                    user.send({ embeds: [warnEmbed] }).catch((err: any) => console.log(err));
                 }
                 else {
                     message.channel.send('Dude you can\'t warn yourself stop wasting my time')
@@ -67,7 +67,7 @@ export const warnUser: command = {
                 const warnEmbed = new discord.MessageEmbed()
                     .setColor("#FFA500")
                     .setTitle("You have been warned")
-                    .addFields(
+                    .setFields(
                         {
                             name: "Event:",
                             value: `${mod} has issued a warning to you.`,
@@ -81,20 +81,20 @@ export const warnUser: command = {
 
                 client.users.fetch(message.content.split(' ')[1]).then((user: any) => {
                     console.log(user);
-                    user?.send({ embed: warnEmbed })
+                    user?.send({ embeds: [warnEmbed] })
                     message.channel.send('Successfully warned')
                 }).catch((x: any) => {
                     const errorEmbed = new discord.MessageEmbed()
                         .setColor("#ff0000")
                         .setTitle("Failed")
-                        .addFields(
+                        .setFields(
                             {
                                 name: "ID not found",
                                 value: `Seems like the user id you provided wasn't right, please try again witht he correct id`,
                             }
                         )
                         .setFooter("Try again");
-                    message.channel.send({ embed: errorEmbed })
+                    message.channel.send({ embeds: [errorEmbed] })
                 })
             }
             else {
@@ -105,14 +105,14 @@ export const warnUser: command = {
             const errorEmbed = new discord.MessageEmbed()
                 .setColor("#ff0000")
                 .setTitle("Failed")
-                .addFields(
+                .setFields(
                     {
                         name: "Improper use of the warn command",
                         value: `Message starts with ;warn followed by the user then the reason [Note reason is optional ]`,
                     }
                 )
                 .setFooter("Try again");
-            message.channel.send({ embed: errorEmbed })
+            message.channel.send({ embeds: [errorEmbed] })
         }
     }
 }

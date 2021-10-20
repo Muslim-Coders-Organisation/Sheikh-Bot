@@ -117,13 +117,13 @@ client.on('messageCreate', async message => {
         }
         if (message.content.startsWith(prefix + 'kick')) {
           KickUser.command(message)
-        } /* 
+        } /*
         if (message.content.startsWith(prefix + 'ban')) {
           BanUser.command(message)
-        }/* 
+        }
         if (message.content.startsWith(prefix + 'unban')) {
           Unban.command(message)
-        }* /
+        }*/
         if (message.content === prefix + 'trial') {
           const botping = Date.now() - message.createdTimestamp
           const apiping = Math.round(client.ws.ping)
@@ -133,10 +133,10 @@ client.on('messageCreate', async message => {
             .setDescription(`Bot Latency: ${botping}ms \nDiscord API Latency: ${apiping}ms`)
 
           message.channel.send({ embeds: [embed] })
-        }/* 
+        }
         if (message.content.startsWith(prefix + 'warn')) {
           warnUser.command(client, message)
-        }*/
+        }
       }
 
     }

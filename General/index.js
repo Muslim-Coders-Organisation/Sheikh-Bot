@@ -46,6 +46,7 @@ var config_prefix_1 = require("../Commands/config-prefix");
 var connect_db_1 = require("./connect_db");
 var ayah_1 = require("../Commands/ayah");
 var arabicayah_1 = require("../Commands/arabicayah");
+var warn_1 = require("../Commands/warn");
 var kick_1 = require("../Commands/kick");
 var membercount_1 = require("../Commands/membercount");
 var purge_1 = require("../Commands/purge");
@@ -83,7 +84,7 @@ client.on('guildMemberAdd', function (member) { return __awaiter(void 0, void 0,
     });
 }); });
 client.on('messageCreate', function (message) { return __awaiter(void 0, void 0, void 0, function () {
-    var search, p;
+    var search, p, botping, apiping, embed;
     var _a;
     return __generator(this, function (_b) {
         switch (_b.label) {
@@ -168,23 +169,22 @@ client.on('messageCreate', function (message) { return __awaiter(void 0, void 0,
                     } /*
                     if (message.content.startsWith(prefix + 'ban')) {
                       BanUser.command(message)
-                    }/*
+                    }
                     if (message.content.startsWith(prefix + 'unban')) {
                       Unban.command(message)
-                    }* /
-                    if (message.content === prefix + 'trial') {
-                      const botping = Date.now() - message.createdTimestamp
-                      const apiping = Math.round(client.ws.ping)
-                      const embed = new Discord.MessageEmbed()
-                        .setColor('RANDOM')
-                        .setTitle("Success!")
-                        .setDescription(`Bot Latency: ${botping}ms \nDiscord API Latency: ${apiping}ms`)
-            
-                      message.channel.send({ embeds: [embed] })
-                    }/*
-                    if (message.content.startsWith(prefix + 'warn')) {
-                      warnUser.command(client, message)
                     }*/
+                    if (message.content === prefix + 'trial') {
+                        botping = Date.now() - message.createdTimestamp;
+                        apiping = Math.round(client.ws.ping);
+                        embed = new Discord.MessageEmbed()
+                            .setColor('RANDOM')
+                            .setTitle("Success!")
+                            .setDescription("Bot Latency: " + botping + "ms \nDiscord API Latency: " + apiping + "ms");
+                        message.channel.send({ embeds: [embed] });
+                    }
+                    if (message.content.startsWith(prefix + 'warn')) {
+                        warn_1.warnUser.command(client, message);
+                    }
                 }
                 _b.label = 14;
             case 14: return [2 /*return*/];
