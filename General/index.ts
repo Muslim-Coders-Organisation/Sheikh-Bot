@@ -20,7 +20,7 @@ import { Unban } from '../Commands/unban'
 import { serverInfo } from '../Commands/server-info'
 import { Avatar } from '../Commands/avatar'
 import { userInfo } from '../Commands/userinfo';
-import { VerifyCreate } from '../commands/verification'
+import { VerifyCreate } from '../Commands/verification'
 import M from '../Database/basic'
 
 
