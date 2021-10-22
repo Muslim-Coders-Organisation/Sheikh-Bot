@@ -53,7 +53,7 @@ var purge_1 = require("../Commands/purge");
 var server_info_1 = require("../Commands/server-info");
 var avatar_1 = require("../Commands/avatar");
 var userinfo_1 = require("../Commands/userinfo");
-var verification_1 = require("../commands/verification");
+var verification_1 = require("../Commands/verification");
 var basic_1 = require("../Database/basic");
 console.log(connect_db_1.connect());
 var INTENTS = [
