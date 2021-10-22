@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "ts-node ./general/index.ts",
-    "build": "tsc ./general/index.ts && node ./general/index.js"
+    "start": "ts-node ./General/index.ts",
+    "build": "tsc ./General/index.ts && node ./general/index.js"
   },
   "repository": {
     "type": "git",
