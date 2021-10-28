@@ -7,19 +7,22 @@ The Discord server is open to everyone, other than muslims as well.
 ---
 
 # How to run
+
 ```
 1. clone this repository
-2. run `npm i` 
+2. run `npm i`
 3. create a .env file in your project directory with the following variables:
-4. token = discord bot's token 
-5. db = mongodb url 
-6. run 'npm start' 
+4. token = discord bot's token
+5. db = mongodb url
+6. run 'npm start'
 ```
- 
+
 # Contributions
+
 Each and every contribution matters, whether it's a function or fixing a typo in the documentation.
-    
+
 #### To Contribute follow these steps:
+
     1. Fork this repo and clone it to your local computer
     2. create branch
     3. add/fix features/bug to the repo
@@ -29,9 +32,6 @@ Each and every contribution matters, whether it's a function or fixing a typo in
 
 # Questions / Help
 
-
 For Any Kind of Question, Join our [Discord Server](https://discord.gg/Vtnv3tBJem)
-And for fast response tag @Ameen or @Validity-Check 
+And for fast response tag @Ameen or @validity-check
 :)
- 
-
