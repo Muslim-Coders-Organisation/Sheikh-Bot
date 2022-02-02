@@ -31,7 +31,7 @@ export const KickUser: command = {
                 .then(() => {
                   message.reply(`Successfully kicked ${user.tag}`);
                 })
-                .catch((err) => {
+                .catch((err: Error | unknown) => {
                   message.reply("I was unable to kick the member");
 
                   console.error(err);
