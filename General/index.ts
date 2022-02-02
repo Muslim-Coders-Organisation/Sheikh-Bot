@@ -47,6 +47,8 @@ client.on("ready", () => {
   console.log(client?.user?.username + " is active");
 });
 
+const definitions: String[] = ['salafism', 'wahabism', "islam"]
+
 client.on("guildMemberAdd", async (member: any) => {
   console.log(member);
   VerifyCreate.command(member);
@@ -104,6 +106,19 @@ client.on("messageCreate", async (message) => {
         if (message.content.startsWith(prefix + "aq")) {
           arayah.command(message);
         }
+
+        if (message.content.startsWith(prefix + 'info')) {
+          let arg: string = message.content.split(' ')[1].toLowerCase()
+          console.log(definitions.includes(arg))
+          if (definitions.includes(arg)) {
+            require(`../commands/${arg}.ts`).run(undefined, message);
+
+          }
+          else {
+            message.channel.send(`I do not know what is ${arg}`)
+          }
+        }
+
 
         /* Config Commands */
         if (message.content.startsWith(prefix + "config prefix")) {
