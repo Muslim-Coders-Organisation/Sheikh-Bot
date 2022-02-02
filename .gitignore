@@ -1,2 +1,3 @@
 .env
+ormconfig.json
 /node_modules
