@@ -6,6 +6,7 @@ class Database {
     createConnection().then(async (connection: Connection) => {
       if (!connection.isConnected) {
         log('error', 'Database', 'Error while database connection');
+        return;
       }
       log("info", "Database", "Successfully connected to database");
       log("info", "Database", "Registered entities: " + connection.entityMetadatas.length);
