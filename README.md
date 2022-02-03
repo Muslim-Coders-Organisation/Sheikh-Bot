@@ -8,15 +8,31 @@ The Discord server is open to everyone, other than muslims as well.
 
 # How to run
 
-```
-1. clone this repository
-2. run `npm i`
-3. create a .env file in your project directory with the following variables:
-4. token = discord bot's token
-5. db = mongodb url
-6. run 'npm start'
-```
 
+- clone this repository
+- run `npm i`
+- create a .env file in your project directory with a bot token under the "token" env variable
+- Create a ormconfig.json with the template below
+- run `npm start`
+
+
+# ormconfig Template
+```
+{
+    // change these according to your developer environment
+    "type": "mysql",
+    "host": "localhost",
+    "port": 3306,
+    "username": "myUsername",   
+    "password": "mySecurePassword12!",
+    "database": "SheikhChilli",
+    "synchronize": true,
+    "logging": false,
+     "entities": [
+        "Database/entities/**/*.ts"
+    ]
+}
+```
 # Contributions
 
 Each and every contribution matters, whether it's a function or fixing a typo in the documentation.

@@ -1,4 +1,4 @@
-import * as discord from "discord.js";
+import { User } from "discord.js";
 import { command } from "./int";
 
 export const BanUser: command = {
@@ -61,7 +61,7 @@ export const BanUser: command = {
           message.guild
             ? message.guild.members
                 .ban(message.content.split(" ")[1], { reason: reason })
-                .then((user) =>
+                .then((user: User) =>
                   message.reply(
                     `Banned ${user.username || user.id || user} from ${
                       message.guild.name

@@ -2,13 +2,11 @@
 import * as Discord from "discord.js";
 import { Intents } from "discord.js";
 import * as dotenv from "dotenv";
-import * as mongoose from "mongoose";
 
 // commandsy
 import { resetChannel } from "../Commands/recreateChannel";
 import { configPrefix } from "../Commands/config-prefix";
 import { BanUser } from "../Commands/ban";
-import { connect } from "./connect_db";
 import { ayah } from "../Commands/ayah";
 import { arayah } from "../Commands/arabicayah";
 import { warnUser } from "../Commands/warn";
@@ -21,18 +19,20 @@ import { serverInfo } from "../Commands/server-info";
 import { Avatar } from "../Commands/avatar";
 import { userInfo } from "../Commands/userinfo";
 import { VerifyCreate } from "../Commands/verification";
-import M from "../Database/basic";
+import Database from './connect_db';
+import log from "./logger";
+import { getConnection } from "typeorm";
+import { Prefixes } from './../Database/entities/prefix'
 
-console.log(connect());
+(new Database).connect()
 
 const INTENTS: any = [
   Intents.FLAGS.GUILDS,
-  Intents.FLAGS.GUILD_PRESENCES,
   Intents.FLAGS.GUILD_MESSAGES,
-];
+]
+
 
 const process = dotenv.config().parsed;
-//console.log(process)
 const getToken = function (obj: any) {
   const token = obj.token;
   return token;
@@ -42,25 +42,20 @@ const client = new Discord.Client({
 });
 
 let prefix: String = "<";
-// later add an option to change the prefix in the server it is
 client.on("ready", () => {
-  console.log(client?.user?.username + " is active");
+  log("info", "Discord", "Connected to Discord under user " + client?.user?.tag);
 });
 
 const definitions: String[] = ['salafism', 'wahabism', "islam"]
 
 client.on("guildMemberAdd", async (member: any) => {
-  console.log(member);
   VerifyCreate.command(member);
 });
 
 client.on("messageCreate", async (message) => {
   if (message.channel.type !== "DM") {
     if (message.author.bot == false) {
-      //   console.log()
-      /* Normal Text Commands */
-      let search = String(message?.guild?.id);
-      let p = await M.findOne({ server_id: search });
+      let p = await getConnection().getRepository(Prefixes).findOne({ guildIdentifier: String(message?.guild?.id) });
       prefix = p ? p["prefix"] : "<";
       if (message.content.toLowerCase() == "as") {
         await message.channel.send(
