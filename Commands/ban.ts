@@ -1,4 +1,5 @@
-import * as discord from "discord.js";
+import { User } from "discord.js";
+import log, { errorLog } from "../General/logger";
 import { command } from "./int";
 
 export const BanUser: command = {
@@ -11,7 +12,6 @@ export const BanUser: command = {
         "You aren't based enough to use this command [Reality "
       );
     } else {
-      //  console.log(typeof message.content.split(' ')[1], message.content.split(' ')[1].length == 18, Number(message.content.split(' ')[1]))
 
       const user = message.mentions.users.first();
       if (user) {
@@ -24,10 +24,10 @@ export const BanUser: command = {
               .then(() => {
                 message.reply(`Successfully Banned ${user.tag}`);
               })
-              .catch((err: any) => {
+              .catch((err: Error) => {
                 message.reply("I was unable to ban the member");
-
-                console.error(err);
+                log("error", "Discord", "Error while banning member: " + err.name)
+                errorLog(err);
               });
           } else if (message.content.split(" ").length > 2) {
             let reason: string = "";
@@ -42,8 +42,8 @@ export const BanUser: command = {
               })
               .catch((err: any) => {
                 message.reply("I was unable to ban the member");
-
-                console.error(err);
+                log("error", "Discord", "Error while banning member: " + err.name)
+                errorLog(err);
               });
           }
         } else {
@@ -61,14 +61,17 @@ export const BanUser: command = {
           message.guild
             ? message.guild.members
                 .ban(message.content.split(" ")[1], { reason: reason })
-                .then((user) =>
+                .then((user: User) =>
                   message.reply(
                     `Banned ${user.username || user.id || user} from ${
                       message.guild.name
                     }`
                   )
                 )
-                .catch(console.error)
+              .catch((err: Error) => { 
+                log("error", "Discord", "Error while banning member: " + err.name)
+                errorLog(err);
+              })
             : "";
         } else
           message.reply("Please mention the id or the user to ban, thanks :)");

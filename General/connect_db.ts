@@ -1,28 +1,20 @@
-import * as mongoose from "mongoose";
-import * as dotenv from "dotenv";
-const process = dotenv.config().parsed;
-//console.log(process)
-const getLink = function (obj: any) {
-  const db = obj.db;
-  return db;
-};
+import { Connection, createConnection } from "typeorm";
+import log, { errorLog } from "./logger";
 
-const mongoAtlasUri = getLink(process);
-
-export function connect(): string {
-  try {
-    // Connect to the MongoDB cluster
-    mongoose.connect(
-      mongoAtlasUri,
-      { useNewUrlParser: true, useUnifiedTopology: true },
-      () => console.log(" Mongoose is connected")
-    );
-  } catch (e) {
-    console.log("could not connect", e);
+class Database {
+  async connect(): Promise<void> {
+    createConnection().then(async (connection: Connection) => {
+      if (!connection.isConnected) {
+        log('error', 'Database', 'Error while database connection');
+        return;
+      }
+      log("info", "Database", "Successfully connected to database");
+      log("info", "Database", "Registered entities: " + connection.entityMetadatas.length);
+    }).catch(error => {
+      log('critical', 'Database', 'Failed to connect to database');
+      errorLog(error, true);
+    })
   }
-
-  const dbConnection = mongoose.connection;
-  dbConnection.on("error", (err) => console.log(`Connection error ${err}`));
-  dbConnection.once("open", () => "");
-  return "Success";
 }
+
+export default Database;
