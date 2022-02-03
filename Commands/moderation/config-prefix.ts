@@ -1,7 +1,7 @@
 import { Message } from "discord.js";
 import { getConnection } from "typeorm";
-import { Prefixes } from "../Database/entities/prefix";
-import * as inter from "./int";
+import { Prefixes } from "../../Database/entities/prefix";
+import * as inter from "../int";
 
 export const configPrefix: inter.command = {
   title: "Change prefix",

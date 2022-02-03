@@ -23,7 +23,7 @@ const clearLog = () => {
 }
 
 const errorLog = (err: Error | unknown, kill?: boolean) => {
-    process.stdout.write(String(err))
+    process.stdout.write(String(err) + '\n')
     if (kill) {
         process.exit(1);
     }

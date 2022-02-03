@@ -1,6 +1,6 @@
-import { command } from "./int";
+import { command } from "../int";
 import * as discord from "discord.js";
-import { CreateEmbed } from "./embed";
+import { CreateEmbed } from "../embed";
 import axios from "axios";
 
 export const multipleayah: command = {

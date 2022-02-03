@@ -1,6 +1,6 @@
 import * as discord from "discord.js";
-import { command } from "./int";
-import { CreateEmbed } from "./embed";
+import { command } from "../int";
+import { CreateEmbed } from "../embed";
 
 export const userInfo: command = {
   title: "User-Information",

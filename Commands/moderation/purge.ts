@@ -1,5 +1,5 @@
 import * as discord from "discord.js";
-import { command } from "./int";
+import { command } from "../int";
 
 export const Purge: command = {
   title: "Purge",

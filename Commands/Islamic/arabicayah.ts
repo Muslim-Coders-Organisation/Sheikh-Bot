@@ -1,6 +1,6 @@
-import * as inter from "./int";
+import * as inter from "../int";
 import * as discord from "discord.js";
-import { CreateEmbed } from "./embed";
+import { CreateEmbed } from "../embed";
 import axios from "axios";
 export const arayah: inter.command = {
   title: "Getting Ayah in Arabic",
