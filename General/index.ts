@@ -10,7 +10,6 @@ import { BanUser } from "../Commands/moderation/ban";
 import { ayah } from "../Commands/Islamic/ayah";
 import { arayah } from "../Commands/Islamic/arabicayah";
 import { warnUser } from "../Commands/moderation/warn";
-import { CreateEmbed } from "../Commands/embed";
 import { KickUser } from "../Commands/moderation/kick";
 import { memberCount } from "../Commands/moderation/membercount";
 import { Purge } from "../Commands/moderation/purge";
@@ -23,7 +22,7 @@ import Database from './connect_db';
 import log, { clearLog } from "./logger";
 import { getConnection } from "typeorm";
 import { Prefixes } from '../Database/entities/prefix'
-import { schedule } from "../Commands/schedule";
+import { schedule } from "../Commands/moderation/schedule";
 import { beginSchedulerLoop } from "../Events/schedulerRunner";
 clearLog();
 (new Database).connect()

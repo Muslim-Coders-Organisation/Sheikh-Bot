@@ -1,10 +1,10 @@
 import { Message, MessageEmbed, Permissions } from "discord.js";
 import { getConnection } from "typeorm";
-import { Schedules } from "../Database/entities/schedules";
-import { addToRuntimeJSON, deleteFromRuntimeJSON } from "../Events/schedulerRunner";
-import log, { errorLog } from "../General/logger";
-import * as embed from "./embed";
-import * as inter from "./int";
+import { Schedules } from "../../Database/entities/schedules";
+import { addToRuntimeJSON, deleteFromRuntimeJSON } from "../../Events/schedulerRunner";
+import log, { errorLog } from "../../General/logger";
+import * as embed from "../embed";
+import * as inter from "../int";
 
 export const schedule: inter.command = {
     title: "Schedule",
@@ -207,6 +207,26 @@ export const schedule: inter.command = {
                         ])
                     }
                     message.channel.send({ embeds: [embed] })
+                    return;
+                case 'content':
+                    if (message.content.split(' ')[2]) {
+                        const name = message.content.split(' ')[2]
+                        const check = await getConnection().getRepository(Schedules).findOne({
+                            scheduleName: name,
+                            guildIdentifier: message.guild?.id
+                        })
+                        if (check === undefined) {
+                            message.channel.send("That schedule doesn't exist in this guild.")
+                        } else {
+                            const embed = new MessageEmbed()
+                                .setTimestamp()
+                                .setTitle("Schedule content")
+                                .setDescription(check.message)
+                            message.channel.send({ embeds: [embed] })  
+                        }
+                    } else {
+                        message.channel.send("You didn't mention a name to view the contents of")
+                    }
                     return;
                 default:
                     message.channel.send("Invalid command")
