@@ -11,12 +11,12 @@ export const schedule: inter.command = {
     description: "Sets new job schedules",
     category: "moderation-general",
     command: async function command(message: Message) {
-        if (message.content.split(' ')[1]) {
-            switch (message.content.split(' ')[1]) {
+        if (message.member?.permissions?.has(Permissions.FLAGS.ADMINISTRATOR)) {
+            if (message.content.split(' ')[1]) {
+                switch (message.content.split(' ')[1]) {
 
-                case 'create':
-                    try {
-                        if (message.member?.permissions.has(Permissions.FLAGS.ADMINISTRATOR)) {
+                    case 'create':
+                        try {
                             let args: string[] = []
                             let toBeSentArray: any[] = []
                             args.push(message.content.split(" ")[2])
@@ -110,130 +110,130 @@ export const schedule: inter.command = {
                                 errorLog(err, false)
                                 message.channel.send("An error occured while creating the schedule, please try again later")
                             })
-                        } else {
-                            message.channel.send("You don't have permission to use this command")
-                        }
 
-                    } catch (e: Error | unknown) {
-                        if (e instanceof Error) {
-                            log('error', 'Discord', 'Error while scheduling a job: ' + e?.name + e?.message)
-                        } else {
-                            log('error', 'Discord', 'Error while scheduling a job. Error name not available')
+                        } catch (e: Error | unknown) {
+                            if (e instanceof Error) {
+                                log('error', 'Discord', 'Error while scheduling a job: ' + e?.name + e?.message)
+                            } else {
+                                log('error', 'Discord', 'Error while scheduling a job. Error name not available')
+                            }
+                            errorLog(e);
+                            message.channel.send("Something went wrong while scheduling the job. Please try again later.");
                         }
-                        errorLog(e);
-                        message.channel.send("Something went wrong while scheduling the job. Please try again later.");
-                    }
-                    return;
-                case 'delete':
-                    if (message.content.split(' ')[2]) {
-                        const name = message.content.split(' ')[2]
-                        const check = await getConnection().getRepository(Schedules).findOne({
-                            scheduleName: name,
-                            guildIdentifier: message.guild?.id
-                        })
-                        if (check === undefined) {
-                            message.channel.send("That schedule doesn't exist in this guild.")
-                            return;
-                        }
-                        getConnection().getRepository(Schedules).delete({ guildIdentifier: check.guildIdentifier, scheduleName: check.scheduleName }).then(() => {
-                            message.channel.send("Schedule has been deleted successfully")
-                            if (!message?.guild?.id) return;
-                            deleteFromRuntimeJSON(name, message.guild?.id)
-                        }).catch((err: Error) => {
-                            errorLog(err, false)
-                            message.channel.send("An error occured while deleting the schedule, please try again later")
-                            log('error', 'Discord/Database', "Error while deleting schedule")
-                        })
-                    } else {
-                        message.channel.send("You didn't mention a name to delete")
-                    }
-                    return;
-                case 'toggle':
-                    if (message.content.split(' ')[2]) {
-                        const name = message.content.split(' ')[2]
-                        const check = await getConnection().getRepository(Schedules).findOne({
-                            scheduleName: name,
-                            guildIdentifier: message.guild?.id
-                        })
-                        if (check === undefined) {
-                            message.channel.send("That schedule doesn't exist in this guild.")
-                            return;
-                        }
-                        if (check.enabled) {
-                            getConnection().getRepository(Schedules).update({ scheduleName: name, guildIdentifier: message?.guild?.id }, { enabled: false }).then(() => {
-                                message.channel.send("Schedule has been disabled successfully")
-                                if (!message?.guild?.id) return;
-                                if (message && message.guild && message.guild.id) {
-                                    deleteFromRuntimeJSON(name, message.guild.id)
-                                }
-                            }).catch((err: Error) => {
-                                errorLog(err.stack, false)
-                                message.channel.send("An error occured while disabling the schedule, please try again later")
-                                log('error', 'Discord/Database', "Error while disabling schedule")
+                        return;
+                    case 'delete':
+                        if (message.content.split(' ')[2]) {
+                            const name = message.content.split(' ')[2]
+                            const check = await getConnection().getRepository(Schedules).findOne({
+                                scheduleName: name,
+                                guildIdentifier: message.guild?.id
                             })
-                        } else {
-                            getConnection().getRepository(Schedules).update({ scheduleName: name, guildIdentifier: message?.guild?.id }, { enabled: true }).then(() => {
-                                message.channel.send("Schedule has been enabled successfully")
+                            if (check === undefined) {
+                                message.channel.send("That schedule doesn't exist in this guild.")
+                                return;
+                            }
+                            getConnection().getRepository(Schedules).delete({ guildIdentifier: check.guildIdentifier, scheduleName: check.scheduleName }).then(() => {
+                                message.channel.send("Schedule has been deleted successfully")
                                 if (!message?.guild?.id) return;
-                                addToRuntimeJSON(name, Number(check.interval), check.channelIdentifier, check.message, message.guild?.id)
+                                deleteFromRuntimeJSON(name, message.guild?.id)
                             }).catch((err: Error) => {
                                 errorLog(err, false)
-                                message.channel.send("An error occured while enabling the schedule, please try again later")
-                                log('error', 'Discord/Database', "Error while enabling schedule")
+                                message.channel.send("An error occured while deleting the schedule, please try again later")
+                                log('error', 'Discord/Database', "Error while deleting schedule")
                             })
+                        } else {
+                            message.channel.send("You didn't mention a name to delete")
                         }
-                    } else {
-                        message.channel.send("You didn't mention a name to toggle")
                         return;
-                    }
-                    return;
-                case 'list':
-                    const schedules = await getConnection().getRepository(Schedules).find({
-                        guildIdentifier: message.guild?.id
-                    })
-                    if (schedules.length === 0) {
-                        message.channel.send("There are no schedules in this guild")
+                    case 'toggle':
+                        if (message.content.split(' ')[2]) {
+                            const name = message.content.split(' ')[2]
+                            const check = await getConnection().getRepository(Schedules).findOne({
+                                scheduleName: name,
+                                guildIdentifier: message.guild?.id
+                            })
+                            if (check === undefined) {
+                                message.channel.send("That schedule doesn't exist in this guild.")
+                                return;
+                            }
+                            if (check.enabled) {
+                                getConnection().getRepository(Schedules).update({ scheduleName: name, guildIdentifier: message?.guild?.id }, { enabled: false }).then(() => {
+                                    message.channel.send("Schedule has been disabled successfully")
+                                    if (!message?.guild?.id) return;
+                                    if (message && message.guild && message.guild.id) {
+                                        deleteFromRuntimeJSON(name, message.guild.id)
+                                    }
+                                }).catch((err: Error) => {
+                                    errorLog(err.stack, false)
+                                    message.channel.send("An error occured while disabling the schedule, please try again later")
+                                    log('error', 'Discord/Database', "Error while disabling schedule")
+                                })
+                            } else {
+                                getConnection().getRepository(Schedules).update({ scheduleName: name, guildIdentifier: message?.guild?.id }, { enabled: true }).then(() => {
+                                    message.channel.send("Schedule has been enabled successfully")
+                                    if (!message?.guild?.id) return;
+                                    addToRuntimeJSON(name, Number(check.interval), check.channelIdentifier, check.message, message.guild?.id)
+                                }).catch((err: Error) => {
+                                    errorLog(err, false)
+                                    message.channel.send("An error occured while enabling the schedule, please try again later")
+                                    log('error', 'Discord/Database', "Error while enabling schedule")
+                                })
+                            }
+                        } else {
+                            message.channel.send("You didn't mention a name to toggle")
+                            return;
+                        }
                         return;
-                    }
-                    const embed = new MessageEmbed()
-                        .setTimestamp()
-                        .setTitle("Schedules in this guild")
-                        .setDescription("To enable a schedule, run `schedule toggle <name>`")
-                    for (const schedule of schedules) {
-                        embed.addFields([
-                            { name: "Name", value: schedule.scheduleName, inline: true },
-                            { name: "Interval", value: schedule.interval.toString() + ' minutes', inline: true },
-                            { name: "Channel", value: `<#${schedule.channelIdentifier}>`, inline: true },
-                        ])
-                    }
-                    message.channel.send({ embeds: [embed] })
-                    return;
-                case 'content':
-                    if (message.content.split(' ')[2]) {
-                        const name = message.content.split(' ')[2]
-                        const check = await getConnection().getRepository(Schedules).findOne({
-                            scheduleName: name,
+                    case 'list':
+                        const schedules = await getConnection().getRepository(Schedules).find({
                             guildIdentifier: message.guild?.id
                         })
-                        if (check === undefined) {
-                            message.channel.send("That schedule doesn't exist in this guild.")
-                        } else {
-                            const embed = new MessageEmbed()
-                                .setTimestamp()
-                                .setTitle("Schedule content")
-                                .setDescription(check.message)
-                            message.channel.send({ embeds: [embed] })  
+                        if (schedules.length === 0) {
+                            message.channel.send("There are no schedules in this guild")
+                            return;
                         }
-                    } else {
-                        message.channel.send("You didn't mention a name to view the contents of")
-                    }
-                    return;
-                default:
-                    message.channel.send("Invalid command")
-                    return;
+                        const embed = new MessageEmbed()
+                            .setTimestamp()
+                            .setTitle("Schedules in this guild")
+                            .setDescription("To enable a schedule, run `schedule toggle <name>`")
+                        for (const schedule of schedules) {
+                            embed.addFields([
+                                { name: "Name", value: schedule.scheduleName, inline: true },
+                                { name: "Interval", value: schedule.interval.toString() + ' minutes', inline: true },
+                                { name: "Channel", value: `<#${schedule.channelIdentifier}>`, inline: true },
+                            ])
+                        }
+                        message.channel.send({ embeds: [embed] })
+                        return;
+                    case 'content':
+                        if (message.content.split(' ')[2]) {
+                            const name = message.content.split(' ')[2]
+                            const check = await getConnection().getRepository(Schedules).findOne({
+                                scheduleName: name,
+                                guildIdentifier: message.guild?.id
+                            })
+                            if (check === undefined) {
+                                message.channel.send("That schedule doesn't exist in this guild.")
+                            } else {
+                                const embed = new MessageEmbed()
+                                    .setTimestamp()
+                                    .setTitle("Schedule content")
+                                    .setDescription(check.message)
+                                message.channel.send({ embeds: [embed] })
+                            }
+                        } else {
+                            message.channel.send("You didn't mention a name to view the contents of")
+                        }
+                        return;
+                    default:
+                        message.channel.send("Invalid command")
+                        return;
+                }
+            } else {
+                message.channel.send("You need to include an action. \nActions: create, delete, toggle")
             }
         } else {
-            message.channel.send("You need to include an action. \nActions: create, delete, toggle")
+            message.channel.send("You do not have the permission to use this command")
         }
     }
 }
