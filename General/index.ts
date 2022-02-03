@@ -20,10 +20,10 @@ import { Avatar } from "../Commands/avatar";
 import { userInfo } from "../Commands/userinfo";
 import { VerifyCreate } from "../Commands/verification";
 import Database from './connect_db';
-import log from "./logger";
+import log, { clearLog } from "./logger";
 import { getConnection } from "typeorm";
 import { Prefixes } from './../Database/entities/prefix'
-
+clearLog();
 (new Database).connect()
 
 const INTENTS: any = [
@@ -80,6 +80,7 @@ client.on("messageCreate", async (message) => {
         await message.channel.send("إن شاء الله");
       }
       if (message.content.startsWith(String(prefix))) {
+        log('info', 'Discord', `Command ${message.content.split(' ')[0].substring(prefix.length, message.content.split(' ')[0].length)} was executed by ${message.author.tag} in guild ${message?.guild?.name}`);
         /* General Commands */
         if (message.content.toLowerCase() == prefix + "membercount") {
           memberCount.command(message);
