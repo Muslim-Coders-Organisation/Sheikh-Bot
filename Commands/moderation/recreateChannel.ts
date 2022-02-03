@@ -1,6 +1,5 @@
 import { Message, Permissions  } from "discord.js";
 import log, { errorLog } from "../../General/logger";
-import * as embed from "../embed";
 import * as inter from "../int";
 
 export const resetChannel: inter.command = {
