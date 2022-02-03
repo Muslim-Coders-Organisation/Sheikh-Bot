@@ -1,5 +1,6 @@
 import * as discord from "discord.js";
 import { isMemberName } from "typescript";
+import log, { errorLog } from "../General/logger";
 import { command } from "./int";
 
 export const VerifyCreate: command = {
@@ -7,7 +8,6 @@ export const VerifyCreate: command = {
   description: "Only for the bot",
   category: "moderation-general",
   command: async function command(member: any) {
-    console.log("heyy");
     let exists: boolean = false,
       id: number = 0,
       parent: any;
@@ -120,6 +120,9 @@ export const VerifyCreate: command = {
           .setTimestamp();
         c.send({ embed });
       })
-      .catch(console.error);
+      .catch((err: Error) => {
+        log("error", "Discord", "Error while creating channel: " + err.name);
+        errorLog(err);
+      });
   },
 };

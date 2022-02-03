@@ -1,6 +1,7 @@
 import { command } from "./int";
 import * as discord from "discord.js";
 import { CreateEmbed } from "./embed";
+import log, { errorLog } from "../General/logger";
 
 export const warnUser: command = {
   title: "Warn User",
@@ -47,7 +48,11 @@ export const warnUser: command = {
           message.channel.send("Successfully warned");
           user
             .send({ embeds: [warnEmbed] })
-            .catch((err: any) => console.log(err));
+            .catch((err: Error) => {
+              log("error", "Discord", "Error while warning user: " + err.name);
+              errorLog(err);
+              
+            });
         } else {
           message.channel.send(
             "Dude you can't warn yourself stop wasting my time"
@@ -92,7 +97,6 @@ export const warnUser: command = {
         client.users
           .fetch(message.content.split(" ")[1])
           .then((user: any) => {
-            console.log(user);
             user?.send({ embeds: [warnEmbed] });
             message.channel.send("Successfully warned");
           })

@@ -104,7 +104,6 @@ client.on("messageCreate", async (message) => {
 
         if (message.content.startsWith(prefix + 'info')) {
           let arg: string = message.content.split(' ')[1].toLowerCase()
-          console.log(definitions.includes(arg))
           if (definitions.includes(arg)) {
             require(`../commands/${arg}.ts`).run(undefined, message);
 

@@ -1,4 +1,5 @@
 import * as discord from "discord.js";
+import log, { errorLog } from "../General/logger";
 import { command } from "./int";
 
 export const KickUser: command = {
@@ -31,10 +32,10 @@ export const KickUser: command = {
                 .then(() => {
                   message.reply(`Successfully kicked ${user.tag}`);
                 })
-                .catch((err: Error | unknown) => {
+                .catch((err: Error) => {
                   message.reply("I was unable to kick the member");
-
-                  console.error(err);
+                  log("error", "Discord", "Error while kicking member: " + err.name)
+                  errorLog(err);
                 });
             } else {
               message.reply("That user isn't in this guild!");

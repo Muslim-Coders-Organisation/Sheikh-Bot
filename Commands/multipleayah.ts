@@ -37,7 +37,6 @@ export const multipleayah: command = {
             if (resp.code == 200) {
               await resp;
               await content.push(resp.data.text);
-              console.log(content);
               if (i == maxnum) {
                 con(content);
               }
