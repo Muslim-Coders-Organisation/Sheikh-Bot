@@ -4,25 +4,27 @@ import { Intents } from "discord.js";
 import * as dotenv from "dotenv";
 
 // commandsy
-import { resetChannel } from "../Commands/recreateChannel";
-import { configPrefix } from "../Commands/config-prefix";
-import { BanUser } from "../Commands/ban";
-import { ayah } from "../Commands/ayah";
-import { arayah } from "../Commands/arabicayah";
-import { warnUser } from "../Commands/warn";
+import { resetChannel } from "../Commands/moderation/recreateChannel";
+import { configPrefix } from "../Commands/moderation/config-prefix";
+import { BanUser } from "../Commands/moderation/ban";
+import { ayah } from "../Commands/Islamic/ayah";
+import { arayah } from "../Commands/Islamic/arabicayah";
+import { warnUser } from "../Commands/moderation/warn";
 import { CreateEmbed } from "../Commands/embed";
-import { KickUser } from "../Commands/kick";
-import { memberCount } from "../Commands/membercount";
-import { Purge } from "../Commands/purge";
-import { Unban } from "../Commands/unban";
-import { serverInfo } from "../Commands/server-info";
-import { Avatar } from "../Commands/avatar";
-import { userInfo } from "../Commands/userinfo";
-import { VerifyCreate } from "../Commands/verification";
+import { KickUser } from "../Commands/moderation/kick";
+import { memberCount } from "../Commands/moderation/membercount";
+import { Purge } from "../Commands/moderation/purge";
+import { Unban } from "../Commands/moderation/unban";
+import { serverInfo } from "../Commands/misc/server-info";
+import { Avatar } from "../Commands/misc/avatar";
+import { userInfo } from "../Commands/misc/userinfo";
+import { VerifyCreate } from "../Commands/moderation/verification";
 import Database from './connect_db';
 import log, { clearLog } from "./logger";
 import { getConnection } from "typeorm";
-import { Prefixes } from './../Database/entities/prefix'
+import { Prefixes } from '../Database/entities/prefix'
+import { schedule } from "../Commands/schedule";
+import { beginSchedulerLoop } from "../Events/schedulerRunner";
 clearLog();
 (new Database).connect()
 
@@ -103,6 +105,10 @@ client.on("messageCreate", async (message) => {
           arayah.command(message);
         }
 
+        if (message.content.startsWith(prefix + "schedule")) {
+          schedule.command(message);
+        }
+
         if (message.content.startsWith(prefix + 'info')) {
           let arg: string = message.content.split(' ')[1].toLowerCase()
           if (definitions.includes(arg)) {
@@ -157,3 +163,9 @@ client.on("messageCreate", async (message) => {
 });
 
 client.login(getToken(process));
+
+export function getClient(): Discord.Client {
+  return client;
+}
+
+beginSchedulerLoop()

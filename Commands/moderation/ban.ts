@@ -1,6 +1,6 @@
 import { User } from "discord.js";
-import log, { errorLog } from "../General/logger";
-import { command } from "./int";
+import log, { errorLog } from "../../General/logger";
+import { command } from "../int";
 
 export const BanUser: command = {
   title: "Bans the User",

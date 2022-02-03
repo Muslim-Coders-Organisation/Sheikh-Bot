@@ -1,6 +1,6 @@
 import * as discord from "discord.js";
-import { CreateEmbed } from "./embed";
-import { command } from "./int";
+import { CreateEmbed } from "../embed";
+import { command } from "../int";
 
 export const Unban: command = {
   title: "Unban",

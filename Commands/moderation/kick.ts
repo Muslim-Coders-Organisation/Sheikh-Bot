@@ -1,6 +1,6 @@
 import * as discord from "discord.js";
-import log, { errorLog } from "../General/logger";
-import { command } from "./int";
+import log, { errorLog } from "../../General/logger";
+import { command } from "../int";
 
 export const KickUser: command = {
   title: "Kicks the User",

@@ -1,7 +1,7 @@
 import * as discord from "discord.js";
 import { isMemberName } from "typescript";
-import log, { errorLog } from "../General/logger";
-import { command } from "./int";
+import log, { errorLog } from "../../General/logger";
+import { command } from "../int";
 
 export const VerifyCreate: command = {
   title: "Verification System - 1",

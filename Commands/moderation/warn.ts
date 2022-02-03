@@ -1,7 +1,7 @@
-import { command } from "./int";
+import { command } from "../int";
 import * as discord from "discord.js";
-import { CreateEmbed } from "./embed";
-import log, { errorLog } from "../General/logger";
+import { CreateEmbed } from "../embed";
+import log, { errorLog } from "../../General/logger";
 
 export const warnUser: command = {
   title: "Warn User",
