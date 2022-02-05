@@ -9,6 +9,8 @@ export const ayah: inter.command = {
     "fetting a particular ayah from the Quran Surah Number:Ayah Number",
   category: "islamic",
   command: function getingAyah(message: any) {
+    console.log('hey')
+
     if (message.content.split(" ").length > 1) {
       const ayah = message.content.split(" ")[1];
       const ayatCheck = /[1234567890:]/;
@@ -25,9 +27,9 @@ export const ayah: inter.command = {
             ""
           ),
         });
-      } else if (ayah.match(multipleayatcheck)) {
+      } /*else if (ayah.match(multipleayatcheck)) {
         multipleayah.command(message);
-      } else {
+      }/ */ else {
         // send
 
         axios({
@@ -36,10 +38,11 @@ export const ayah: inter.command = {
         })
           .then(async function (response: any) {
             const resp = await response.data;
+            console.log(resp)
             if (resp.code == 200) {
               await resp;
-              message.channel.send({
-                embed: CreateEmbed(
+              await message.channel.send({
+                embeds: CreateEmbed(
                   "success",
                   resp.data.surah?.englishName,
                   "",
@@ -52,8 +55,8 @@ export const ayah: inter.command = {
             }
           })
           .catch(async (err: any) => {
-            const resp: any = await err?.response.data;
-            if (resp.status) {
+            const resp: any = await err?.response?.data;
+            if (resp) {
               message.channel.send({
                 embeds: CreateEmbed(
                   "fail",

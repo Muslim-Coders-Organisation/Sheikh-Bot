@@ -33,9 +33,10 @@ export const arayah: inter.command = {
         })
           .then(async function (response: any) {
             const resp = await response.data;
+            console.log(resp)
             if (resp.code == 200) {
               await resp;
-              message.channel.send({
+              await message.channel.send({
                 embed: CreateEmbed(
                   "success",
                   resp.data.surah?.name,

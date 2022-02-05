@@ -11,12 +11,9 @@ import { ayah } from "../Commands/Islamic/ayah";
 import { arayah } from "../Commands/Islamic/arabicayah";
 import { warnUser } from "../Commands/moderation/warn";
 import { KickUser } from "../Commands/moderation/kick";
-import { memberCount } from "../Commands/moderation/membercount";
 import { Purge } from "../Commands/moderation/purge";
 import { Unban } from "../Commands/moderation/unban";
-import { serverInfo } from "../Commands/misc/server-info";
-import { Avatar } from "../Commands/misc/avatar";
-import { userInfo } from "../Commands/misc/userinfo";
+
 import { VerifyCreate } from "../Commands/moderation/verification";
 import Database from './connect_db';
 import log, { clearLog } from "./logger";
@@ -47,8 +44,9 @@ client.on("ready", () => {
   log("info", "Discord", "Connected to Discord under user " + client?.user?.tag);
 });
 
-const definitions: String[] = ['salafism', 'wahabism', "islam"]
-
+const infoCommands: String[] = ['salafism', 'wahabism', "islam"]
+const generalCommands: string[] = ["membercount", "serverinfo", "userinfo", "av"]
+const islamicCommands: string[] = ['q', 'aq']
 client.on("guildMemberAdd", async (member: any) => {
   VerifyCreate.command(member);
 });
@@ -82,42 +80,34 @@ client.on("messageCreate", async (message) => {
       }
       if (message.content.startsWith(String(prefix))) {
         log('info', 'Discord', `Command ${message.content.split(' ')[0].substring(prefix.length, message.content.split(' ')[0].length)} was executed by ${message.author.tag} in guild ${message?.guild?.name}`);
+        let cmd: string = message.content.split(" ")[0].replace(String(prefix), "")
         /* General Commands */
-        if (message.content.toLowerCase() == prefix + "membercount") {
-          memberCount.command(message);
+        if (generalCommands.includes(cmd)) {
+          require(`../Commands/general/${cmd}.ts`)[cmd]['command'](message, undefined, client)
         }
-        if (message.content.toLowerCase().startsWith(prefix + "serverinfo")) {
-          serverInfo.command(message, client);
-        }
-        if (message.content.toLowerCase().startsWith(prefix + "userinfo")) {
-          userInfo.command(message);
-        }
-        if (message.content.startsWith(prefix + "av")) {
-          Avatar.command(message, client);
-        }
-        /* Islamic Commands */
-        if (message.content.startsWith(prefix + "q")) {
-          ayah.command(message);
+        else if (message.content.toLowerCase().startsWith(prefix + 'info')) {
+          cmd = message.content.toLowerCase().split(' ')[1]
+
+          if (infoCommands.includes(cmd)) {
+            console.log(cmd)
+            require(`../Commands/info/${cmd}.ts`).run(undefined, message)
+          }
+          else {
+            message.channel.send(`I do not know what is ${cmd}`)
+          }
         }
 
-        if (message.content.startsWith(prefix + "aq")) {
-          arayah.command(message);
+        /* Islamic Commands */
+        if (islamicCommands.includes(cmd)) {
+          let x = cmd == 'q' ? 'ayah' : 'arabicayah';
+          console.log(x)
+          require(`../Commands/islamic/${x}.ts`)[x]['command'](message)
         }
 
         if (message.content.startsWith(prefix + "schedule")) {
           schedule.command(message);
         }
 
-        if (message.content.startsWith(prefix + 'info')) {
-          let arg: string = message.content.split(' ')[1].toLowerCase()
-          if (definitions.includes(arg)) {
-            require(`../commands/${arg}.ts`).run(undefined, message);
-
-          }
-          else {
-            message.channel.send(`I do not know what is ${arg}`)
-          }
-        }
 
 
         /* Config Commands */
