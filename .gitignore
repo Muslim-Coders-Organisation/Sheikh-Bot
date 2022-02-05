@@ -1,3 +1,5 @@
 .env
 ormconfig.json
 /node_modules
+/.vs
+/.vscode
