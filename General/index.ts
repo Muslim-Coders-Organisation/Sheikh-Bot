@@ -25,6 +25,7 @@ import { Prefixes } from '../Database/entities/prefix'
 import { schedule } from "../Commands/moderation/schedule";
 import { beginSchedulerLoop } from "../Events/schedulerRunner";
 import { getRandomColorHex } from "../functions/getRandomHex";
+import { devstat } from "../Commands/development/statistic";
 clearLog();
 (new Database).connect()
 
@@ -142,6 +143,9 @@ client.on("messageCreate", async (message) => {
         if (message.content.startsWith(prefix + 'unban')) {
           Unban.command(message)
         }*/
+          if (message.content.startsWith(prefix + 'devstat')) {
+              devstat.command(message)
+          }
         if (message.content === prefix + "trial") {
           const botping = Date.now() - message.createdTimestamp;
           const apiping = Math.round(client.ws.ping);
