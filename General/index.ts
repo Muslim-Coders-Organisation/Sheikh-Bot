@@ -24,6 +24,7 @@ import { getConnection } from "typeorm";
 import { Prefixes } from '../Database/entities/prefix'
 import { schedule } from "../Commands/moderation/schedule";
 import { beginSchedulerLoop } from "../Events/schedulerRunner";
+import { getRandomColorHex } from "../functions/getRandomHex";
 clearLog();
 (new Database).connect()
 
@@ -145,9 +146,9 @@ client.on("messageCreate", async (message) => {
           const botping = Date.now() - message.createdTimestamp;
           const apiping = Math.round(client.ws.ping);
           const embed = new Discord.MessageEmbed()
-            .setColor("RANDOM")
+            .setColor(getRandomColorHex())
             .setTitle("Success!")
-            .setDescription(
+          embed.setDescription(
               `Bot Latency: ${botping}ms \nDiscord API Latency: ${apiping}ms`
             );
 
