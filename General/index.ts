@@ -89,13 +89,20 @@ client.on("messageCreate", async (message) => {
         }
         else if (message.content.toLowerCase().startsWith(prefix + 'info')) {
           cmd = message.content.toLowerCase().split(' ')[1]
-
-          if (infoCommands.includes(cmd)) {
-            console.log(cmd)
-            require(`../Commands/info/${cmd}.ts`).run(undefined, message)
+          console.log(cmd)
+          if (cmd == undefined) {
+            message.channel.send(
+              `The following options are there for the info command ${infoCommands.join(', ')}`
+            )
           }
           else {
-            message.channel.send(`I do not know what is ${cmd}`)
+            if (infoCommands.includes(cmd)) {
+              console.log(cmd)
+              require(`../Commands/info/${cmd}.ts`).run(undefined, message)
+            }
+            else {
+              message.channel.send(`I do not know what is ${cmd}`)
+            }
           }
         }
 
