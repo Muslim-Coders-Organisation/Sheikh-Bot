@@ -2,7 +2,7 @@ import * as discord from "discord.js";
 import log, { errorLog } from "../../General/logger";
 import { command } from "../int";
 
-export const KickUser: command = {
+export const kick: command = {
   title: "Kicks the User",
   description: "Kicks the mentioned user",
   category: "moderation-general",

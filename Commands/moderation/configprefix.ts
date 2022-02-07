@@ -3,7 +3,7 @@ import { getConnection } from "typeorm";
 import { Prefixes } from "../../Database/entities/prefix";
 import * as inter from "../int";
 
-export const configPrefix: inter.command = {
+export const configprefix: inter.command = {
   title: "Change prefix",
   description:
     "Changes prefix to the one supplied by the user, to use in the server",
@@ -19,7 +19,7 @@ export const configPrefix: inter.command = {
     }
     let serverid: any = String(message.guild?.id);
     if (p?.prefix) {
-      let change = await getConnection().getRepository(Prefixes).findOne({ guildIdentifier: serverid }).then((row: any) => { 
+      let change = await getConnection().getRepository(Prefixes).findOne({ guildIdentifier: serverid }).then((row: any) => {
         if (row) {
           if (pre === undefined) return;
           row.prefix = pre;
@@ -28,7 +28,7 @@ export const configPrefix: inter.command = {
       })
       message.channel.send("Prefix successfully changed to " + pre);
     } else {
-      getConnection().getRepository(Prefixes).save({guildIdentifier: String(serverid),prefix: pre});
+      getConnection().getRepository(Prefixes).save({ guildIdentifier: String(serverid), prefix: pre });
       message.channel.send("Prefix successfully changed to " + pre);
     }
   },

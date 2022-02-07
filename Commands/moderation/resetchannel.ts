@@ -1,13 +1,14 @@
-import { Message, Permissions  } from "discord.js";
+import { Message, Permissions } from "discord.js";
 import log, { errorLog } from "../../General/logger";
 import * as inter from "../int";
 
-export const resetChannel: inter.command = {
+export const resetchannel: inter.command = {
   title: "Reset Channel",
   description:
     "Resets the channel, deletes all the messages [ Clones the channel and deletes the current one ]",
   category: "moderation-admin",
   command: function command(message: Message) {
+    console.log('hey')
     if (
       message?.member?.permissions?.has(Permissions.FLAGS.ADMINISTRATOR)
     ) {
@@ -24,7 +25,7 @@ export const resetChannel: inter.command = {
         });
       message.channel
         .delete()
-        .then((x: any) => {})
+        .then((x: any) => { })
         .catch((err: Error) => {
           log("error", "Discord", "Error while resetting channel: " + err.name);
           errorLog(err);

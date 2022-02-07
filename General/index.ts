@@ -4,15 +4,8 @@ import { Intents } from "discord.js";
 import * as dotenv from "dotenv";
 
 // commandsy
-import { resetChannel } from "../Commands/moderation/recreateChannel";
-import { configPrefix } from "../Commands/moderation/config-prefix";
-import { BanUser } from "../Commands/moderation/ban";
-import { ayah } from "../Commands/Islamic/ayah";
-import { arayah } from "../Commands/Islamic/arabicayah";
-import { warnUser } from "../Commands/moderation/warn";
-import { KickUser } from "../Commands/moderation/kick";
-import { Purge } from "../Commands/moderation/purge";
-import { Unban } from "../Commands/moderation/unban";
+
+
 
 import { VerifyCreate } from "../Commands/moderation/verification";
 import Database from './connect_db';
@@ -48,6 +41,8 @@ client.on("ready", () => {
 
 const infoCommands: String[] = ['salafism', 'wahabism', "islam", 'rajab']
 const generalCommands: string[] = ["membercount", "serverinfo", "userinfo", "av"]
+const moderationCommands: string[] = ["ban", "configprefix", "kick", "purge", 'resetchannel', 'schedule', 'unban', 'warn']
+
 const islamicCommands: string[] = ['q', 'aq']
 client.on("guildMemberAdd", async (member: any) => {
   VerifyCreate.command(member);
@@ -87,6 +82,9 @@ client.on("messageCreate", async (message) => {
         if (generalCommands.includes(cmd)) {
           require(`../Commands/general/${cmd}.ts`)[cmd]['command'](message, undefined, client)
         }
+        else if (moderationCommands.includes(cmd)) {
+          require(`../Commands/moderation/${cmd}.ts`)[cmd]['command'](message, client)
+        }
         else if (message.content.toLowerCase().startsWith(prefix + 'info')) {
           cmd = message.content.toLowerCase().split(' ')[1]
           console.log(cmd)
@@ -120,26 +118,7 @@ client.on("messageCreate", async (message) => {
 
 
         /* Config Commands */
-        if (message.content.startsWith(prefix + "config prefix")) {
-          configPrefix.command(message, p);
-        }
 
-        /* Normal Moderation Commands */
-        if (message.content === prefix + "resetChannel") {
-          resetChannel.command(message);
-        }
-        if (message.content.startsWith(prefix + "purge")) {
-          Purge.command(message);
-        }
-        if (message.content.startsWith(prefix + "kick")) {
-          KickUser.command(message);
-        } /*
-        if (message.content.startsWith(prefix + 'ban')) {
-          BanUser.command(message)
-        }
-        if (message.content.startsWith(prefix + 'unban')) {
-          Unban.command(message)
-        }*/
         if (message.content.startsWith(prefix + 'devstat')) {
           devstat.command(message)
         }
@@ -154,9 +133,6 @@ client.on("messageCreate", async (message) => {
           );
 
           message.channel.send({ embeds: [embed] });
-        }
-        if (message.content.startsWith(prefix + "warn")) {
-          warnUser.command(client, message);
         }
       }
     }

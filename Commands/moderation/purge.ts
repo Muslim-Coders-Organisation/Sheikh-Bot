@@ -1,7 +1,7 @@
 import * as discord from "discord.js";
 import { command } from "../int";
 
-export const Purge: command = {
+export const purge: command = {
   title: "Purge",
   description:
     "Purges all the messages mentioned [ messages should be within 14 days ]",

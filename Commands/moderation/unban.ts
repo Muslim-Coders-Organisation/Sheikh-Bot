@@ -2,7 +2,7 @@ import * as discord from "discord.js";
 import { CreateEmbed } from "../embed";
 import { command } from "../int";
 
-export const Unban: command = {
+export const unban: command = {
   title: "Unban",
   description: "Unbans the user mentioned by their id",
   category: "moderation-admin",

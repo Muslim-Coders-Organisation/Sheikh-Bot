@@ -3,11 +3,11 @@ import * as discord from "discord.js";
 import { CreateEmbed } from "../embed";
 import log, { errorLog } from "../../General/logger";
 
-export const warnUser: command = {
+export const warn: command = {
   title: "Warn User",
   description: "Warns the user mentioned.",
   category: "moderation-general",
-  command: function command(client: any, message: any) {
+  command: function command(message: any, client: any) {
     if (
       message.content.split(" ")[0] == ";warn" &&
       message.content.split(" ").length > 1 &&
@@ -51,7 +51,7 @@ export const warnUser: command = {
             .catch((err: Error) => {
               log("error", "Discord", "Error while warning user: " + err.name);
               errorLog(err);
-              
+
             });
         } else {
           message.channel.send(

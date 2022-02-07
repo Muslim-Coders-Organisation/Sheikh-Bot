@@ -2,7 +2,7 @@ import { User } from "discord.js";
 import log, { errorLog } from "../../General/logger";
 import { command } from "../int";
 
-export const BanUser: command = {
+export const ban: command = {
   title: "Bans the User",
   description: "Bans the mentioned user",
   category: "moderation-general",
@@ -60,15 +60,14 @@ export const BanUser: command = {
         if (message.content.split(" ")[1].length == 18) {
           message.guild
             ? message.guild.members
-                .ban(message.content.split(" ")[1], { reason: reason })
-                .then((user: User) =>
-                  message.reply(
-                    `Banned ${user.username || user.id || user} from ${
-                      message.guild.name
-                    }`
-                  )
+              .ban(message.content.split(" ")[1], { reason: reason })
+              .then((user: User) =>
+                message.reply(
+                  `Banned ${user.username || user.id || user} from ${message.guild.name
+                  }`
                 )
-              .catch((err: Error) => { 
+              )
+              .catch((err: Error) => {
                 log("error", "Discord", "Error while banning member: " + err.name)
                 errorLog(err);
               })
