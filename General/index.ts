@@ -46,7 +46,7 @@ client.on("ready", () => {
   log("info", "Discord", "Connected to Discord under user " + client?.user?.tag);
 });
 
-const infoCommands: String[] = ['salafism', 'wahabism', "islam"]
+const infoCommands: String[] = ['salafism', 'wahabism', "islam", 'rajab']
 const generalCommands: string[] = ["membercount", "serverinfo", "userinfo", "av"]
 const islamicCommands: string[] = ['q', 'aq']
 client.on("guildMemberAdd", async (member: any) => {
@@ -133,9 +133,9 @@ client.on("messageCreate", async (message) => {
         if (message.content.startsWith(prefix + 'unban')) {
           Unban.command(message)
         }*/
-          if (message.content.startsWith(prefix + 'devstat')) {
-              devstat.command(message)
-          }
+        if (message.content.startsWith(prefix + 'devstat')) {
+          devstat.command(message)
+        }
         if (message.content === prefix + "trial") {
           const botping = Date.now() - message.createdTimestamp;
           const apiping = Math.round(client.ws.ping);
@@ -143,8 +143,8 @@ client.on("messageCreate", async (message) => {
             .setColor(getRandomColorHex())
             .setTitle("Success!")
           embed.setDescription(
-              `Bot Latency: ${botping}ms \nDiscord API Latency: ${apiping}ms`
-            );
+            `Bot Latency: ${botping}ms \nDiscord API Latency: ${apiping}ms`
+          );
 
           message.channel.send({ embeds: [embed] });
         }
