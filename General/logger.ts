@@ -25,9 +25,9 @@ const clearLog = () => {
 const errorLog = (err: Error | unknown, kill?: boolean) => {
     process.stdout.write(String(err) + '\n')
     if (err instanceof Error) {
-        writeFileSync(__dirname + '/../error-latest.log', String(err.stack))
+        writeFileSync(__dirname + '/../error-latest.log', String(err.stack));
     } else {
-        writeFileSync(__dirname + '/../error-latest.log', "Error is unknown"
+        writeFileSync(__dirname + '/../error-latest.log', "Error is unknown");
     }
     if (kill) {
         process.exit(1);
