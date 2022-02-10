@@ -24,6 +24,7 @@ const clearLog = () => {
 
 const errorLog = (err: Error | unknown, kill?: boolean) => {
     process.stdout.write(String(err) + '\n')
+    writeFileSync(__dirname + '/../error-latest.log', err.stack)
     if (kill) {
         process.exit(1);
     }
