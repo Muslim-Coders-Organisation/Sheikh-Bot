@@ -1,6 +1,6 @@
 import moment from 'moment';
 import chalk from 'chalk';
-import { appendFileSync, existsSync, mkdirSync, readdirSync } from 'fs';
+import { appendFileSync, existsSync, mkdirSync, readdirSync, writeFileSync } from 'fs';
 type level = "info" | "warn" | "error" | "fatal" | "critical";
 const log = (level: level, service: string, message: string) => {
     let color = chalk.white
