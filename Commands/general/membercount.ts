@@ -9,17 +9,11 @@ export const membercount: command = {
   category: "general",
   command: function command(message?: Message, interaction?: Interaction, client?: Client) {
     if (message != undefined) {
-      message.channel.send({
-        embeds: [CreateEmbed(
-          "others",
-          "Members",
-          "",
-          String(message?.guild?.memberCount),
-          [],
-          "",
-          ""
-        )]
-      });
+      const Embed = new discord.MessageEmbed()
+        .setColor("#FFA500")
+        .setTitle('Member count')
+        .setDescription(String(message?.guild?.memberCount))
     }
   },
 };
+
