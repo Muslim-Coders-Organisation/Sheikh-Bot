@@ -13,6 +13,8 @@ export const membercount: command = {
         .setColor("#FFA500")
         .setTitle('Member count')
         .setDescription(String(message?.guild?.memberCount))
+      message.channel.send({ embeds: [Embed] });
+
     }
   },
 };
