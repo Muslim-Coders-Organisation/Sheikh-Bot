@@ -22,6 +22,8 @@ clearLog();
 const INTENTS: any = [
   Intents.FLAGS.GUILDS,
   Intents.FLAGS.GUILD_MESSAGES,
+  Intents.FLAGS.GUILD_MEMBERS
+
 ]
 
 
@@ -41,7 +43,7 @@ client.on("ready", () => {
 
 const infoCommands: String[] = ['salafism', 'wahabism', "islam", 'rajab']
 const generalCommands: string[] = ["membercount", "serverinfo", "userinfo", "av"]
-const moderationCommands: string[] = ["ban", "configprefix", "kick", "purge", 'resetchannel', 'schedule', 'unban', 'warn']
+const moderationCommands: string[] = ["kickrole", "ban", "configprefix", "kick", "purge", 'resetchannel', 'schedule', 'unban', 'warn']
 
 const islamicCommands: string[] = ['q', 'aq']
 client.on("guildMemberAdd", async (member: any) => {
@@ -53,6 +55,7 @@ client.on("messageCreate", async (message) => {
     if (message.author.bot == false) {
       let p = await getConnection().getRepository(Prefixes).findOne({ guildIdentifier: String(message?.guild?.id) });
       prefix = p ? p["prefix"] : "<";
+      console.log(prefix)
       if (message.content.toLowerCase() == "as") {
         await message.channel.send(
           "السَّلاَم عَلَيْكُمْ وَرَحْمَةُ اللهِ وَبَرَكَاتُهُ"
@@ -79,15 +82,17 @@ client.on("messageCreate", async (message) => {
         log('info', 'Discord', `Command ${message.content.split(' ')[0].substring(prefix.length, message.content.split(' ')[0].length)} was executed by ${message.author.tag} in guild ${message?.guild?.name}`);
         let cmd: string = message.content.split(" ")[0].replace(String(prefix), "")
         /* General Commands */
+
         if (generalCommands.includes(cmd)) {
           require(`../Commands/general/${cmd}.ts`)[cmd]['command'](message, undefined, client)
         }
         else if (moderationCommands.includes(cmd)) {
+          console.log(require(`../Commands/moderation/${cmd}.ts`)[cmd])
           require(`../Commands/moderation/${cmd}.ts`)[cmd]['command'](message, client)
         }
         else if (message.content.toLowerCase().startsWith(prefix + 'info')) {
           cmd = message.content.toLowerCase().split(' ')[1]
-          console.log(cmd)
+
           if (cmd == undefined) {
             message.channel.send(
               `The following options are there for the info command ${infoCommands.join(', ')}`
