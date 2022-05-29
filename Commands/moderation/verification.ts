@@ -69,7 +69,7 @@ export const VerifyCreate: command = {
 
     }
     if (!exists) {
-      parent = await member.guild.channels.create(`Verification-${member.user.username}`, {
+      parent = await member.guild.channels.create("Verification-tickets", {
         type: "GUILD_CATEGORY",
         permissionOverwrites: [
           {
@@ -82,7 +82,7 @@ export const VerifyCreate: command = {
           }
         ]
       }).then((parent: any) => {
-        member.guild.channels.create('Verification', {
+        member.guild.channels.create(`Verification - ${member.user.username}`, {
           type: 'GUILD_TEXT',
           // under the parent category
           parent, // shorthand for parent: parent
