@@ -35,6 +35,27 @@ export const VerifyCreate: command = {
             ],
           },
           {
+            id: '842083996577169488',
+            allow: [
+              "SEND_MESSAGES",
+              "VIEW_CHANNEL",
+            ]
+          },
+          {
+            id: '842083989577400411',
+            allow: [
+              "SEND_MESSAGES",
+              "VIEW_CHANNEL",
+            ]
+          },
+          {
+            id: '841728441753010206',
+            allow: [
+              "SEND_MESSAGES",
+              "VIEW_CHANNEL",
+            ]
+          },
+          {
             id: '841728006224347167',
             deny: ['VIEW_CHANNEL']
           }
@@ -85,6 +106,27 @@ export const VerifyCreate: command = {
                 "SEND_MESSAGES",
                 "VIEW_CHANNEL",
               ],
+            },
+            {
+              id: '842083996577169488',
+              allow: [
+                "SEND_MESSAGES",
+                "VIEW_CHANNEL",
+              ]
+            },
+            {
+              id: '842083989577400411',
+              allow: [
+                "SEND_MESSAGES",
+                "VIEW_CHANNEL",
+              ]
+            },
+            {
+              id: '841728441753010206',
+              allow: [
+                "SEND_MESSAGES",
+                "VIEW_CHANNEL",
+              ]
             },
             {
               id: '841728006224347167',
