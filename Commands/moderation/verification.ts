@@ -35,10 +35,6 @@ export const VerifyCreate: command = {
             ],
           },
           {
-            id: '929311330387787838',
-            deny: ['VIEW_CHANNEL']
-          },
-          {
             id: '841728006224347167',
             deny: ['VIEW_CHANNEL']
           }
@@ -73,10 +69,6 @@ export const VerifyCreate: command = {
         type: "GUILD_CATEGORY",
         permissionOverwrites: [
           {
-            id: '929311330387787838',
-            deny: ['VIEW_CHANNEL']
-          },
-          {
             id: '841728006224347167',
             deny: ['VIEW_CHANNEL']
           }
@@ -93,10 +85,6 @@ export const VerifyCreate: command = {
                 "SEND_MESSAGES",
                 "VIEW_CHANNEL",
               ],
-            },
-            {
-              id: '929311330387787838',
-              deny: ['VIEW_CHANNEL']
             },
             {
               id: '841728006224347167',
