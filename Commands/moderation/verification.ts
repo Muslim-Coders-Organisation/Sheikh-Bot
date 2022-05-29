@@ -37,6 +37,10 @@ export const VerifyCreate: command = {
           {
             id: '929311330387787838',
             deny: ['VIEW_CHANNEL']
+          },
+          {
+            id: '841728006224347167',
+            deny: ['VIEW_CHANNEL']
           }
         ]
       }).then((c: any) => {
@@ -66,7 +70,17 @@ export const VerifyCreate: command = {
     }
     if (!exists) {
       parent = await member.guild.channels.create(`Verification-${member.user.username}`, {
-        type: "GUILD_CATEGORY"
+        type: "GUILD_CATEGORY",
+        permissionOverwrites: [
+          {
+            id: '929311330387787838',
+            deny: ['VIEW_CHANNEL']
+          },
+          {
+            id: '841728006224347167',
+            deny: ['VIEW_CHANNEL']
+          }
+        ]
       }).then((parent: any) => {
         member.guild.channels.create('Verification', {
           type: 'GUILD_TEXT',
@@ -80,6 +94,14 @@ export const VerifyCreate: command = {
                 "VIEW_CHANNEL",
               ],
             },
+            {
+              id: '929311330387787838',
+              deny: ['VIEW_CHANNEL']
+            },
+            {
+              id: '841728006224347167',
+              deny: ['VIEW_CHANNEL']
+            }
           ]
         }).then((c: any) => {
 
